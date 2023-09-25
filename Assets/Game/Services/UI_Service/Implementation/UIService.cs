@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using Lukomor.Domain.Scenes;
-using Lukomor.Extentions;
 
 namespace WKosArch.UI_Service
 {
@@ -23,8 +22,6 @@ namespace WKosArch.UI_Service
 
             UI = UserInterface.CreateInstance();
             _sceneManger.OnSceneLoadedEvent += SceneLoaded;
-            Log.PrintWarning($"UIService OnSceneLoadedEvent subscribe");
-
         }
 
         public UniTask InitializeAsync()
@@ -44,10 +41,7 @@ namespace WKosArch.UI_Service
         private void SceneLoaded(SceneLoadingArgs args)
         {
 
-            Log.PrintColor($"UIService OnSceneLoadedEvent call", UnityEngine.Color.green);
-            Log.PrintColor($"SceneLoadingArgs args.SceneName={args.SceneName}", UnityEngine.Color.green);
             var config = _staticDataService.SceneConfigsMap[args.SceneName];
-            Log.PrintColor($"config={config.name}", UnityEngine.Color.green);
 
             UI.Build(config);
         }

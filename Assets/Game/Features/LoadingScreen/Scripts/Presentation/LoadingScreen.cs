@@ -2,12 +2,14 @@ using Lukomor.Application;
 using Lukomor.Common.DIContainer;
 using Lukomor.Domain.Scenes;
 using Lukomor.Extentions;
+using Lukomor.Features.Scenes;
+using System;
 using System.Collections;
 using UnityEngine;
 
 namespace Lukomor.TagsGame.Loading.Presentation
 {
-    public class LoadingScreen : MonoBehaviour
+    public class LoadingScreen : MonoBehaviour, ILoadingScreen
     {
         [SerializeField] private GameObject _goContent;
         [SerializeField] private float _delayTime;
@@ -15,36 +17,32 @@ namespace Lukomor.TagsGame.Loading.Presentation
         private static LoadingScreen _instance;
 
         #region Unity lifecycle
+        
+        //private void Start()
+        //{
+        //    if (TryCreateSingleton())
+        //    {
+        //        if (!Game.IsMainObjectsBound)
+        //        {
+        //            Game.ProjectContextPreInitialized += OnGameProjectContextPreInitialized;
+        //        }
+        //        else
+        //        {
+        //            Init();
+        //        }
+        //    }
+        //}
 
-        private void Awake()
-        {
-            Log.PrintWarning($"Awake loadingScreen");
-        }
-        private void Start()
-        {
-            if (TryCreateSingleton())
-            {
-                if (!Game.IsMainObjectsBound)
-                {
-                    Game.ProjectContextPreInitialized += OnGameProjectContextPreInitialized;
-                }
-                else
-                {
-                    Init();
-                }
-            }
-        }
+        //private void OnDestroy()
+        //{
+        //    if (Game.IsMainObjectsBound)
+        //    {
+        //        var sceneManager = DI.Get<ISceneManager>();
 
-        private void OnDestroy()
-        {
-            if (Game.IsMainObjectsBound)
-            {
-                var sceneManager = DI.Get<ISceneManager>();
-
-                sceneManager.SceneLoading -= OnSceneLoadingStarted;
-                sceneManager.OnSceneLoadedEvent -= OnSceneLoaded;
-            }
-        }
+        //        sceneManager.SceneLoading -= OnSceneLoadingStarted;
+        //        sceneManager.OnSceneLoadedEvent -= OnSceneLoaded;
+        //    }
+        //}
 
         #endregion
 
@@ -80,13 +78,13 @@ namespace Lukomor.TagsGame.Loading.Presentation
             }
         }
 
-        private void OnGameProjectContextPreInitialized()
-        {
-            Game.ProjectContextPreInitialized -= OnGameProjectContextPreInitialized;
-            Log.PrintWarning("OnGameProjectContextPreInitialized");
+        //private void OnGameProjectContextPreInitialized()
+        //{
+        //    Game.ProjectContextPreInitialized -= OnGameProjectContextPreInitialized;
+        //    Log.PrintWarning("OnGameProjectContextPreInitialized");
 
-            Init();
-        }
+        //    Init();
+        //}
 
         private void OnSceneLoadingStarted()
         {
@@ -101,6 +99,7 @@ namespace Lukomor.TagsGame.Loading.Presentation
 
             StartCoroutine(CloseLoadingScreenWithDelay(_delayTime));
         }
+
         private IEnumerator CloseLoadingScreenWithDelay(float delay)
         {
 
@@ -109,5 +108,16 @@ namespace Lukomor.TagsGame.Loading.Presentation
             _goContent.SetActive(false);
         }
 
+        public void Show(Action onComplete = null)
+        {
+            _goContent.SetActive(true);
+            onComplete?.Invoke();
+        }
+
+        public void Hide(Action onComplete = null)
+        {
+            StartCoroutine(CloseLoadingScreenWithDelay(_delayTime));
+            onComplete?.Invoke();
+        }
     }
 }
