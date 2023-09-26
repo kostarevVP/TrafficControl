@@ -1,6 +1,6 @@
 using Cinemachine;
 using Cysharp.Threading.Tasks;
-using Lukomor.Extentions;
+using Lukomor.Features.Scenes;
 using UnityEngine;
 using WKosArch.UI_Service;
 
@@ -38,7 +38,7 @@ public class LoadLevelFeature : ILoadLevelFeature
     #endregion
 
 
-    public void LoadGameLevelEnviroment()
+    public void LoadGameLevelEnviroment(ISceneManagementService _sceneManagementService)
     {
         _gameFactoryFeature.CreateFreeLookCamera();
 
@@ -46,11 +46,12 @@ public class LoadLevelFeature : ILoadLevelFeature
 
         ShowSettingButton();
         SetPlayerToCamera(camera);
+
+        _sceneManagementService.SceneReadyToStart = true;
     }
 
     private void ShowSettingButton()
     {
-        Log.PrintWarning($"ShowSettingButton _ui==null = {_ui == null}");
         _ui.ShowWindow<SettingButtonViewModel>();
     }
 

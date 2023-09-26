@@ -1,4 +1,5 @@
-﻿using Lukomor.Common.DIContainer;
+﻿using Cysharp.Threading.Tasks;
+using Lukomor.Common.DIContainer;
 using Lukomor.Domain.Contexts;
 using Lukomor.Domain.Features;
 using Lukomor.Extentions;
@@ -12,20 +13,40 @@ namespace Lukomor.Features.Scenes
         [SerializeField] private GameObject _loadingScreenPrefab;
 
         private ISceneManagementService _sceneManagementService;
+        private ProjectContext _projectContext;
 
         public override IFeature Create()
         {
+            _projectContext = new DIVar<ProjectContext>().Value;
+
             InstallBindings();
+
+            _sceneManagementService.SceneChanged += LoadSceneContext;
 
             return _sceneManagementService;
         }
 
+        private async void LoadSceneContext(string sceneName)
+        {
+            await LoadContext(sceneName);
+        }
+
         public override void Dispose()
         {
-            
+            _sceneManagementService.SceneChanged -= LoadSceneContext;
+
         }
 
         public void InstallBindings()
+        {
+            ILoadingScreen loadingScreen = IsntatiateLoadingScreen();
+
+            _sceneManagementService = new SceneManagementService(loadingScreen);
+
+            DI.Bind(_sceneManagementService);
+        }
+
+        private ILoadingScreen IsntatiateLoadingScreen()
         {
             ILoadingScreen loadingScreen = default;
 
@@ -37,9 +58,18 @@ namespace Lukomor.Features.Scenes
                 DontDestroyOnLoad(loadingScreenGo);
             }
 
-            _sceneManagementService = new SceneManagementService(loadingScreen);
+            return loadingScreen;
+        }
+        private async UniTask<SceneContext> LoadContext(string sceneName)
+        {
+            SceneContext sceneContext = _projectContext.GetSceneContext(sceneName);
 
-            DI.Bind(_sceneManagementService);
+            if (sceneContext != null)
+            {
+                await sceneContext.InitializeAsync();
+            }
+
+            return sceneContext;
         }
 
         private void OnValidate()

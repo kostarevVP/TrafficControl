@@ -1,7 +1,7 @@
 using Lukomor.Common.DIContainer;
 using Lukomor.Domain.Contexts;
 using Lukomor.Domain.Features;
-using Lukomor.Domain.Scenes;
+using Lukomor.Features.Scenes;
 using UnityEngine;
 
 namespace WKosArch.UI_Service
@@ -12,10 +12,11 @@ namespace WKosArch.UI_Service
         private IUIService _service;
         public override IFeature Create()
         {
-            var sceneManager = new DIVar<ISceneManager>().Value;
-            var staticDataService = new DIVar<IStaticDataService>().Value; 
+            //var sceneManager = new DIVar<ISceneManager>().Value;
+            var sceneMenegmentService = new DIVar<ISceneManagementService>().Value;
+            var staticDataService = new DIVar<IStaticDataService>().Value;
 
-            _service = new UIService(sceneManager, staticDataService);
+            _service = new UIService(staticDataService, sceneMenegmentService);
 
 
             DI.Bind(_service);

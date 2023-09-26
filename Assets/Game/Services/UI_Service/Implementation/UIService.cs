@@ -1,11 +1,14 @@
 using Cysharp.Threading.Tasks;
 using Lukomor.Domain.Scenes;
+using Lukomor.Features.Scenes;
+using System;
 
 namespace WKosArch.UI_Service
 {
     public class UIService : IUIService
     {
-        private readonly ISceneManager _sceneManger;
+        //private readonly ISceneManager _sceneManger;
+        private readonly ISceneManagementService _sceneManagementService;
         private readonly IStaticDataService _staticDataService;
 
 
@@ -15,13 +18,22 @@ namespace WKosArch.UI_Service
 
         public bool IsReady => _isReady;
 
-        public UIService(ISceneManager sceneManger, IStaticDataService staticDataService)
+        public UIService(IStaticDataService staticDataService, ISceneManagementService sceneManagementService)
         {
-            _sceneManger = sceneManger;
+            //_sceneManger = sceneManger;
             _staticDataService = staticDataService;
+            _sceneManagementService = sceneManagementService;
 
             UI = UserInterface.CreateInstance();
-            _sceneManger.OnSceneLoadedEvent += SceneLoaded;
+            _sceneManagementService.SceneLoaded += SceneLoaded;
+            //_sceneManger.OnSceneLoadedEvent += SceneLoaded;
+        }
+
+        private void SceneLoaded(string sceneName)
+        {
+            var config = _staticDataService.SceneConfigsMap[sceneName];
+
+            UI.Build(config);
         }
 
         public UniTask InitializeAsync()
@@ -33,18 +45,18 @@ namespace WKosArch.UI_Service
 
         public UniTask DestroyAsync()
         {
-            _sceneManger.OnSceneLoadedEvent -= SceneLoaded;
+            _sceneManagementService.SceneLoaded -= SceneLoaded;
 
             return UniTask.CompletedTask;
         }
 
-        private void SceneLoaded(SceneLoadingArgs args)
-        {
+        //private void SceneLoaded(SceneLoadingArgs args)
+        //{
 
-            var config = _staticDataService.SceneConfigsMap[args.SceneName];
+        //    var config = _staticDataService.SceneConfigsMap[args.SceneName];
 
-            UI.Build(config);
-        }
+        //    UI.Build(config);
+        //}
 
         public void OnApplicationFocus(bool hasFocus) { }
 

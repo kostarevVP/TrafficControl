@@ -49,8 +49,6 @@ namespace WKosArch.UI_Service
         {
             _uiSceneConfig = config;
 
-            Debug.LogWarning($"UI Build");
-
             DestroyOldWindows();
             CreateNewWindows();
         }

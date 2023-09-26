@@ -6,11 +6,11 @@ namespace Lukomor.Features.Scenes
 {
     public class SceneManagementService : ISceneManagementService
     {
+        public event Action<string> SceneUnloaded;
         public event Action<string> SceneLoadingStarted;
         public event Action<string> SceneChanged;
         public event Action<string> SceneLoaded;
         public event Action<string> SceneStarted;
-        public event Action<string> SceneUnloaded;
 
         private ILoadingScreen _loadingScreen;
 

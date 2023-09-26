@@ -67,15 +67,15 @@ namespace Lukomor.TagsGame.Loading.Presentation
 
         private void Init()
         {
-            var sceneManager = DI.Get<ISceneManager>();
+            //var sceneManager = DI.Get<ISceneManager>();
 
-            sceneManager.SceneLoading += OnSceneLoadingStarted;
-            sceneManager.OnSceneLoadedEvent += OnSceneLoaded;
-            Debug.LogWarning($"LoadingScreen OnSceneLoadedEvent subscribe");
-            if (sceneManager.IsLoading)
-            {
-                OnSceneLoadingStarted();
-            }
+            //sceneManager.SceneLoading += OnSceneLoadingStarted;
+            //sceneManager.OnSceneLoadedEvent += OnSceneLoaded;
+            //Debug.LogWarning($"LoadingScreen OnSceneLoadedEvent subscribe");
+            //if (sceneManager.IsLoading)
+            //{
+            //    OnSceneLoadingStarted();
+            //}
         }
 
         //private void OnGameProjectContextPreInitialized()

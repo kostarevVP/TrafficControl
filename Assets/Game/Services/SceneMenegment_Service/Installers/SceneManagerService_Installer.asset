@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d178daa38d7a28745b1cbc9a4ced0051, type: 3}
   m_Name: SceneManagerService_Installer
   m_EditorClassIdentifier: 
-  _loadingScreenPrefab: {fileID: 0}
+  _loadingScreenPrefab: {fileID: 7001392313246210934, guid: 6b35e36d1ffbc224eb2fb3defdc8310f, type: 3}

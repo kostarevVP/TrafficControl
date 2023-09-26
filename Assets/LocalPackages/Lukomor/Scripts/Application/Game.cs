@@ -30,17 +30,20 @@ namespace Lukomor.Application
                 _gameStarting = true;
                 _projectContext = projectContext;
 
-                ISceneManager sceneManager = SceneManager.CreateInstance(_projectContext);
+                //ISceneManager sceneManager = SceneManager.CreateInstance(_projectContext);
 
-                DI.Bind(sceneManager);
+                //DI.Bind(sceneManager);
 
                 IsMainObjectsBound = true;
                 ProjectContextPreInitialized?.Invoke();
+
+                DI.Bind(_projectContext);
 
                 if (projectContext != null)
                 {
                     await _projectContext.InitializeAsync();
                 }
+
 
                 IsProjectContextInitialized = true;
                 ProjectContextInitialized?.Invoke();
