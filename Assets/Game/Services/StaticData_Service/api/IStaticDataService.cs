@@ -1,12 +1,12 @@
-﻿using Lukomor.Domain.Features;
+﻿using WKosArch.Domain.Features;
 using System.Collections.Generic;
-using WKosArch.UI_Service;
+using WKosArch.Services.UIService;
 
-public interface IStaticDataService : IFeature
+namespace WKosArch.Services.StaticDataServices
 {
-    GameProgressConfig GameProgressConfig { get;}
-    Dictionary<string, UISceneConfig> SceneConfigsMap { get; }
-
-    void LoadGameProgressConfig();
-    void LoadSceneConfigs();
+	public interface IStaticDataService : IFeature
+	{
+		GameProgressConfig GameProgressConfig { get; }
+		Dictionary<string, UISceneConfig> SceneConfigsMap { get; }
+	} 
 }

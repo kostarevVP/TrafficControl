@@ -1,7 +1,7 @@
 ﻿using System;
-using WKosArch.UI_Service.Common;
+using WKosArch.Services.UIService.Common;
 
-namespace WKosArch.UI_Service.Views.Windows
+namespace WKosArch.UIService.Views.Windows
 {
     [Serializable]
     public struct WindowSettings

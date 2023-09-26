@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace Lukomor.Domain.Contexts
+namespace WKosArch.Domain.Contexts
 {
 	public interface IContext
 	{

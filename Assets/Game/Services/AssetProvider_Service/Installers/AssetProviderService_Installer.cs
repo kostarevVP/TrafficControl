@@ -1,24 +1,27 @@
-using Lukomor.Common.DIContainer;
-using Lukomor.Domain.Contexts;
-using Lukomor.Domain.Features;
-using Lukomor.Extentions;
+using WKosArch.Domain.Contexts;
+using WKosArch.Domain.Features;
+using WKosArch.Extentions;
 using UnityEngine;
+using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 
-[CreateAssetMenu(fileName = "AssetProviderService_Installer", menuName = "Game/Installers/AssetProviderService_Installer")]
-public class AssetProviderService_Installer : FeatureInstaller
+namespace WKosArch.Services.AssetProviderService
 {
-    private IAssetProviderService _service;
-
-    public override IFeature Create()
+    [CreateAssetMenu(fileName = "AssetProviderService_Installer", menuName = "Game/Installers/AssetProviderService_Installer")]
+    public class AssetProviderService_Installer : FeatureInstaller
     {
-        _service = new AssetProviderService();
+        private IAssetProviderService _service;
 
-        DI.Bind(_service);
+        public override IFeature Create(IDIContainer container)
+        {
+            _service = new AssetProviderService();
 
-        Log.PrintColor($"[AssetProviderService] Create and Bind", Color.cyan);
+            container.Bind(_service);
 
-        return _service;
-    }
+            Log.PrintColor($"[AssetProviderService] Create and Bind", Color.cyan);
 
-    public override void Dispose() { }
+            return _service;
+        }
+
+        public override void Dispose() { }
+    } 
 }

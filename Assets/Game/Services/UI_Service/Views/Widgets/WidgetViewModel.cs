@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace WKosArch.UI_Service.Views.Widgets
+namespace WKosArch.UIService.Views.Widgets
 {
     public class WidgetViewModel : ViewModel
     {

@@ -1,7 +1,10 @@
-﻿using Lukomor.Domain.Features;
-using Lukomor.Features.Scenes;
+﻿using WKosArch.Domain.Features;
+using WKosArch.Services.Scenes;
 
-public interface ILoadLevelFeature : IFeature
+namespace WKosArch.Features.LoadLevelFeature
 {
-    void LoadGameLevelEnviroment(ISceneManagementService _sceneManagementService);
+	public interface ILoadLevelFeature : IFeature
+	{
+		void LoadGameLevelEnviroment(ISceneManagementService _sceneManagementService);
+	} 
 }

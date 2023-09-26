@@ -1,4 +1,5 @@
-﻿using WKosArch.UI_Service.Views.Windows;
+﻿using WKosArch.Services.SoundService;
+using WKosArch.UIService.Views.Windows;
 
 public class SettingButtonViewModel : WindowViewModel
 {

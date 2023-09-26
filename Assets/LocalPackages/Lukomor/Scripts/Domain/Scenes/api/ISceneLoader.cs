@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 
-namespace Lukomor.Domain.Scenes
+namespace WKosArch.Domain.Scenes
 {
 	public struct SceneLoadingArgs
 	{

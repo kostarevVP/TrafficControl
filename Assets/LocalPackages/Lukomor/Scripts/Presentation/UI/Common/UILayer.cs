@@ -1,4 +1,4 @@
-﻿namespace Lukomor.Presentation.Common {
+﻿namespace WKosArch.Presentation.Common {
 	public enum UILayer {
 		Base = 0,
 		UnderPopupFX = 50,

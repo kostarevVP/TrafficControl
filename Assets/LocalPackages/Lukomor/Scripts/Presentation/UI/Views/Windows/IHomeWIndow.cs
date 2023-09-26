@@ -1,4 +1,4 @@
-﻿namespace Lukomor.Presentation.Views.Windows
+﻿namespace WKosArch.Presentation.Views.Windows
 {
     public interface IHomeWindow : IWindow { }
 }

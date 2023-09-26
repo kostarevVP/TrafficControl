@@ -1,4 +1,4 @@
-﻿namespace Lukomor.Presentation.Views
+﻿namespace WKosArch.Presentation.Views
 {
     public interface IView<out TViewModel> : IView where TViewModel : ViewModel
     {

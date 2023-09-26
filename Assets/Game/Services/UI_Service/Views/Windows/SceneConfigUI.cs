@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace WKosArch.UI_Service.Views.Windows
+namespace WKosArch.UIService.Views.Windows
 {
     [Serializable]
     public class SceneConfigUI

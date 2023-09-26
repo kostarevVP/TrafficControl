@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace WKosArch.UI_Service.Common
+namespace WKosArch.Services.UIService.Common
 {
     public class UILayerContainer : MonoBehaviour
     {

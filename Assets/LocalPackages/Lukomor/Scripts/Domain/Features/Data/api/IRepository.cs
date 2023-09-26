@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace Lukomor.Data
+namespace WKosArch.Data
 {
     public interface IRepository
     {

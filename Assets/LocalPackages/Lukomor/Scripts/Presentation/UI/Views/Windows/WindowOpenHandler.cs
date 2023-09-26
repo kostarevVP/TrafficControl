@@ -1,6 +1,6 @@
-﻿using Lukomor.Common;
+﻿using WKosArch.Common;
 
-namespace Lukomor.Presentation.Views.Windows
+namespace WKosArch.Presentation.Views.Windows
 {
     public class WindowOpenHandler : IWindowOpenHandler
     {

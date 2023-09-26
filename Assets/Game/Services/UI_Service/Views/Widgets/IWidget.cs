@@ -1,4 +1,4 @@
-﻿namespace WKosArch.UI_Service.Views.Widgets
+﻿namespace WKosArch.UIService.Views.Widgets
 {
     public interface IWidget : IView { }
 

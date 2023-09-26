@@ -1,4 +1,4 @@
-﻿namespace WKosArch.UI_Service.Views
+﻿namespace WKosArch.UIService.Views
 {
     public static class ViewExtensions
     {

@@ -1,4 +1,4 @@
-﻿using Lukomor.Extentions;
+﻿using WKosArch.Extentions;
 using UnityEngine;
 
 public class CarCrashDetector : MonoBehaviour

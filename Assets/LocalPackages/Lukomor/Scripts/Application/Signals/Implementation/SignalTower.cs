@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Lukomor.Domain.Signals;
+using WKosArch.Domain.Signals;
 
-namespace Lukomor.Application.Signals
+namespace WKosArch.Application.Signals
 {
 	public class SignalTower : ISignalTower
 	{

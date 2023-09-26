@@ -1,25 +1,27 @@
-using Lukomor.Common.DIContainer;
-using Lukomor.Domain.Contexts;
-using Lukomor.Domain.Features;
-using Lukomor.Extentions;
+using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+using WKosArch.Domain.Contexts;
+using WKosArch.Domain.Features;
+using WKosArch.Extentions;
 using UnityEngine;
 
-
-[CreateAssetMenu(fileName = "Analytic_Installer", menuName = "Game/Installers/Analytic_Installer")]
-public class Analytic_Installer : FeatureInstaller
+namespace WKosArch.Services.AnalyticService
 {
-    private IAnalyticService _service;
-
-    public override IFeature Create()
+    [CreateAssetMenu(fileName = "Analytic_Installer", menuName = "Game/Installers/Analytic_Installer")]
+    public class Analytic_Installer : FeatureInstaller
     {
-        _service = new AnalyticLogService();
+        private IAnalyticService _service;
 
-        DI.Bind(_service);
+        public override IFeature Create(IDIContainer container)
+        {
+            _service = new AnalyticLogService();
 
-        Log.PrintColor($"[IAnalyticService] Create and Bind", Color.cyan);
+            container.Bind(_service);
 
-        return _service;
+            Log.PrintColor($"[IAnalyticService] Create and Bind", Color.cyan);
+
+            return _service;
+        }
+
+        public override void Dispose() { }
     }
-
-    public override void Dispose() { }
 }

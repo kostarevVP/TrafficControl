@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using UnityEngine;
 
-namespace WKosArch.UI_Service.Common
+namespace WKosArch.Services.UIService.Common
 {
     public abstract class Transition : MonoBehaviour
     {

@@ -1,6 +1,6 @@
-﻿using Lukomor.Domain.Features;
+﻿using WKosArch.Domain.Features;
 
-namespace Assets.Game.Services.Progress_Service.api
+namespace Assets.Game.Services.ProgressService.api
 {
     public interface IProgressService : IFeature
     {

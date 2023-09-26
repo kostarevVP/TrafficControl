@@ -1,4 +1,4 @@
-﻿namespace Lukomor.Common
+﻿namespace WKosArch.Common
 {
 	public readonly struct Payload
 	{

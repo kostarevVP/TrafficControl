@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Lukomor.Tools.Editor
+namespace WKosArch.Tools.Editor
 {
     public class ClearPrefsTools : MonoBehaviour
     {

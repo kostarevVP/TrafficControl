@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
 using Cysharp.Threading.Tasks;
-using Lukomor.Domain.Contexts;
-using Lukomor.Domain.Scenes;
-using Lukomor.Presentation;
+using WKosArch.Domain.Contexts;
+using WKosArch.Domain.Scenes;
+using WKosArch.Presentation;
 using UnityEngine;
 
-namespace Lukomor.Application.Scenes
+namespace WKosArch.Application.Scenes
 {
     //public class SceneManager : MonoBehaviour, ISceneManager
     //{

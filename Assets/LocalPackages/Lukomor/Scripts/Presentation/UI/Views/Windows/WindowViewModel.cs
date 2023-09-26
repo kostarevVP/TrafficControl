@@ -1,7 +1,7 @@
-﻿using Lukomor.Common.DIContainer;
+﻿using WKosArch.Common.DIContainer;
 using UnityEngine;
 
-namespace Lukomor.Presentation.Views.Windows
+namespace WKosArch.Presentation.Views.Windows
 {
     public class WindowViewModel : ViewModel
     {

@@ -1,6 +1,6 @@
-using Lukomor.Common.DIContainer;
+using WKosArch.Common.DIContainer;
 using UnityEngine;
-using WKosArch.UI_Service;
+using WKosArch.Services.UIService;
 
 public class BackButtonHandler : MonoBehaviour
 {

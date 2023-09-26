@@ -1,9 +1,10 @@
-﻿using System.Linq;
+﻿using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+using System.Linq;
 using UnityEngine;
 
-namespace Lukomor.Domain.Contexts
+namespace WKosArch.Domain.Contexts
 {
-    public sealed class ProjectContext : MonoContext
+    public sealed class ProjectContext : Context
     {
         [Space]
         [SerializeField] private SceneContext[] _sceneContexts;
@@ -18,6 +19,11 @@ namespace Lukomor.Domain.Contexts
             var result = _sceneContexts.FirstOrDefault(c => c.SceneName == sceneName);
             
             return result;
+        }
+
+        protected override IDIContainer CreateLocalContainer()
+        {
+            return new DIContainer();
         }
     }
 }

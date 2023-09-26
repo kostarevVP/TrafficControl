@@ -1,5 +1,5 @@
 
-using Lukomor.Extentions;
+using WKosArch.Extentions;
 
 public static class AssetPath 
 {

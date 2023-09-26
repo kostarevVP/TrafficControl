@@ -1,42 +1,53 @@
-using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WKosArch.UI_Service;
+using WKosArch.Services.UIService;
 
-public class StaticDataService : IStaticDataService
+namespace WKosArch.Services.StaticDataServices
 {
-    private const string GameProgressPath = "NewGameProgressStaticData";
-    private const string SceneConfigsFolderPath = "SeneConfigs";
-
-    private GameProgressConfig _gameProgressStaticData;
-    private Dictionary<string, UISceneConfig> _sceneConfigsMap;
-
-    private bool _isReady;
-    public bool IsReady => _isReady;
-
-    public GameProgressConfig GameProgressConfig => _gameProgressStaticData;
-    public Dictionary<string, UISceneConfig> SceneConfigsMap => _sceneConfigsMap;
-
-    public UniTask InitializeAsync()
+    public class StaticDataService : IStaticDataService
     {
-        _isReady = true;
-        return UniTask.CompletedTask;
-    }
+        private const string GameProgressPath = "NewGameProgressStaticData";
+        private const string SceneConfigsFolderPath = "SeneConfigs";
 
-    public void LoadGameProgressConfig()
-    {
-        _gameProgressStaticData = Resources.Load<GameProgressConfig>(GameProgressPath);
-    }
-    
-    public void LoadSceneConfigs()
-    {
-        _sceneConfigsMap = Resources.LoadAll<UISceneConfig>(SceneConfigsFolderPath)
-            .ToDictionary(conf => conf.SceneName, conf => conf);
-    }
+        public GameProgressConfig GameProgressConfig => _gameProgressStaticData;
+        public Dictionary<string, UISceneConfig> SceneConfigsMap => _sceneConfigsMap;
+        public bool IsReady => _isReady;
 
-    public void OnApplicationFocus(bool hasFocus) { }
-    public void OnApplicationPause(bool pauseStatus) { }
-    public UniTask DestroyAsync() =>
-        UniTask.CompletedTask;
+
+        private GameProgressConfig _gameProgressStaticData;
+        private Dictionary<string, UISceneConfig> _sceneConfigsMap = new Dictionary<string, UISceneConfig>();
+
+        private bool _isReady;
+
+        public StaticDataService()
+        {
+            LoadGameProgressConfig();
+            LoadSceneConfigs();
+
+            _isReady = true;
+        }
+
+        public void Dispose()
+        {
+            Clear();
+        }
+
+        private void LoadGameProgressConfig()
+        {
+            _gameProgressStaticData = Resources.Load<GameProgressConfig>(GameProgressPath);
+        }
+
+        private void LoadSceneConfigs()
+        {
+            _sceneConfigsMap = Resources.LoadAll<UISceneConfig>(SceneConfigsFolderPath)
+                .ToDictionary(conf => conf.SceneName, conf => conf);
+        }
+
+        private void Clear()
+        {
+            _gameProgressStaticData = null;
+            _sceneConfigsMap.Clear();
+        }
+    } 
 }

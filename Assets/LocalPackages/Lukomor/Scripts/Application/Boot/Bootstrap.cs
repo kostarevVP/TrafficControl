@@ -1,8 +1,8 @@
-﻿using Lukomor.Common.Utils.Async;
-using Lukomor.Domain.Contexts;
+﻿using WKosArch.Common.Utils.Async;
+using WKosArch.Domain.Contexts;
 using UnityEngine;
 
-namespace Lukomor.Application
+namespace WKosArch.Application
 {
     [RequireComponent(typeof(ProjectContext))]
     public class Bootstrap : MonoBehaviour

@@ -1,68 +1,55 @@
 using Cinemachine;
-using Cysharp.Threading.Tasks;
-using Lukomor.Features.Scenes;
+using WKosArch.Services.Scenes;
 using UnityEngine;
-using WKosArch.UI_Service;
+using WKosArch.Services.UIService;
 
-public class LoadLevelFeature : ILoadLevelFeature
+namespace WKosArch.Features.LoadLevelFeature
 {
-    public const string LookPointTag = "LookPoint";
-
-    private readonly IGameFactoryFeature _gameFactoryFeature;
-    private readonly UserInterface _ui;
-
-    private bool _isReady;
-
-    public bool IsReady => _isReady;
-
-
-    public LoadLevelFeature(IGameFactoryFeature gameFactoryFeature, UserInterface ui)
+    public class LoadLevelFeature : ILoadLevelFeature
     {
-        _gameFactoryFeature = gameFactoryFeature;
-        _ui = ui;
-    }
+        public const string LookPointTag = "LookPoint";
 
-    #region IFeature
-    public UniTask InitializeAsync()
-    {
-        _isReady = true;
-        return UniTask.CompletedTask;
-    }
+        private readonly IGameFactoryFeature _gameFactoryFeature;
+        private readonly UserInterface _ui;
 
-    public UniTask DestroyAsync() =>
-        UniTask.CompletedTask;
+        private bool _isReady;
 
-    public void OnApplicationFocus(bool hasFocus) { }
-    public void OnApplicationPause(bool pauseStatus) { }
-
-    #endregion
+        public bool IsReady => _isReady;
 
 
-    public void LoadGameLevelEnviroment(ISceneManagementService _sceneManagementService)
-    {
-        _gameFactoryFeature.CreateFreeLookCamera();
+        public LoadLevelFeature(IGameFactoryFeature gameFactoryFeature, UserInterface ui)
+        {
+            _gameFactoryFeature = gameFactoryFeature;
+            _ui = ui;
 
-        var camera = _gameFactoryFeature.FreeLookCamera;
+            _isReady = true;
+        }
 
-        ShowSettingButton();
-        SetPlayerToCamera(camera);
+        public void LoadGameLevelEnviroment(ISceneManagementService _sceneManagementService)
+        {
+            _gameFactoryFeature.CreateFreeLookCamera();
 
-        _sceneManagementService.SceneReadyToStart = true;
-    }
+            var camera = _gameFactoryFeature.FreeLookCamera;
 
-    private void ShowSettingButton()
-    {
-        _ui.ShowWindow<SettingButtonViewModel>();
-    }
+            ShowSettingButton();
+            SetPlayerToCamera(camera);
 
-    private void SetPlayerToCamera(GameObject freeLookCamera)
-    {
-        var cinemachineCamera = freeLookCamera.GetComponent<CinemachineFreeLook>();
+            _sceneManagementService.SceneReadyToStart = true;
+        }
 
-        var lookFollowPoint = GameObject.FindGameObjectWithTag(LookPointTag).transform;
+        private void ShowSettingButton()
+        {
+            _ui.ShowWindow<SettingButtonViewModel>();
+        }
 
+        private void SetPlayerToCamera(GameObject freeLookCamera)
+        {
+            var cinemachineCamera = freeLookCamera.GetComponent<CinemachineFreeLook>();
 
-        cinemachineCamera.LookAt = lookFollowPoint;
-        cinemachineCamera.Follow = lookFollowPoint;
+            var lookFollowPoint = GameObject.FindGameObjectWithTag(LookPointTag).transform;
+
+            cinemachineCamera.LookAt = lookFollowPoint;
+            cinemachineCamera.Follow = lookFollowPoint;
+        }
     }
 }

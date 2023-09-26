@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lukomor.Common.Utils.Observables
+namespace WKosArch.Common.Utils.Observables
 {
 	public class ObservableEvent
 	{

@@ -1,50 +1,43 @@
 ﻿using Cysharp.Threading.Tasks;
-using Lukomor.Common.DIContainer;
-using Lukomor.Domain.Contexts;
-using Lukomor.Domain.Features;
-using Lukomor.Extentions;
+using WKosArch.Domain.Contexts;
+using WKosArch.Domain.Features;
+using WKosArch.Extentions;
 using UnityEngine;
+using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 
-namespace Lukomor.Features.Scenes
+namespace WKosArch.Services.Scenes
 {
     [CreateAssetMenu(fileName = "SceneManagerService_Installer", menuName = "Game/Installers/SceneManagerService_Installer")]
     public class SceneManagerService_Installer : FeatureInstaller
     {
         [SerializeField] private GameObject _loadingScreenPrefab;
 
-        private ISceneManagementService _sceneManagementService;
         private ProjectContext _projectContext;
+        private ISceneManagementService _sceneManagementService;
 
-        public override IFeature Create()
+        public override IFeature Create(IDIContainer container)
         {
-            _projectContext = new DIVar<ProjectContext>().Value;
+            _projectContext = container.Resolve<ProjectContext>();
 
-            InstallBindings();
-
-            _sceneManagementService.SceneChanged += LoadSceneContext;
-
-            return _sceneManagementService;
-        }
-
-        private async void LoadSceneContext(string sceneName)
-        {
-            await LoadContext(sceneName);
-        }
-
-        public override void Dispose()
-        {
-            _sceneManagementService.SceneChanged -= LoadSceneContext;
-
-        }
-
-        public void InstallBindings()
-        {
             ILoadingScreen loadingScreen = IsntatiateLoadingScreen();
 
             _sceneManagementService = new SceneManagementService(loadingScreen);
 
-            DI.Bind(_sceneManagementService);
+
+            _sceneManagementService.SceneChanged += LoadSceneContext;
+
+            container.Bind(_sceneManagementService);
+            return _sceneManagementService;
         }
+
+
+        public override void Dispose()
+        {
+            _sceneManagementService.SceneChanged -= LoadSceneContext;
+        }
+
+        private async void LoadSceneContext(string sceneName) => 
+            await LoadContext(sceneName);
 
         private ILoadingScreen IsntatiateLoadingScreen()
         {
@@ -60,6 +53,7 @@ namespace Lukomor.Features.Scenes
 
             return loadingScreen;
         }
+
         private async UniTask<SceneContext> LoadContext(string sceneName)
         {
             SceneContext sceneContext = _projectContext.GetSceneContext(sceneName);

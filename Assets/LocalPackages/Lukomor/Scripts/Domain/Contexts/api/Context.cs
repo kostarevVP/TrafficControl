@@ -1,21 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using Cysharp.Threading.Tasks;
-using Lukomor.Common.Utils.Async;
-using Lukomor.Domain.Features;
+using WKosArch.Common.Utils.Async;
+using WKosArch.Domain.Features;
 using UnityEngine;
+using System;
 
-namespace Lukomor.Domain.Contexts
+namespace WKosArch.Domain.Contexts
 {
-    public abstract class MonoContext : MonoBehaviour, IContext
+    public abstract class Context : MonoBehaviour, IContext
     {
         public bool IsReady { get; private set; }
+
+        public IDIContainer Container => _container ??= CreateLocalContainer();
+
 
         [SerializeField] private FeatureInstaller[] _serviceFeaturesInstallers;
         [SerializeField] private FeatureInstaller[] _gameplayFeatureInstallers;
         
 		private List<IFeature> _cachedServiceFeatures;
 		private List<IFeature> _cachedGameplayFeatures;
+
+        private IDIContainer _container;
 
 		#region Unity Lifecycle
 
@@ -27,19 +34,22 @@ namespace Lukomor.Domain.Contexts
 		
 		private void OnDestroy()
 		{
-			Destroy();
+            Container.Dispose();
+            Destroy();
 		}
 		
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			foreach (IFeature serviceFeature in _cachedServiceFeatures)
 			{
-				serviceFeature.OnApplicationFocus(hasFocus);
+				if(serviceFeature is IFocusPauseFeature focusFeature)
+                    focusFeature.OnApplicationFocus(hasFocus);
 			}
 
 			foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
 			{
-				gameplayFeature.OnApplicationFocus(hasFocus);
+				if(gameplayFeature is IFocusPauseFeature focusFeature)
+                    focusFeature.OnApplicationFocus(hasFocus);
 			}
 		}
 
@@ -47,12 +57,14 @@ namespace Lukomor.Domain.Contexts
 		{
 			foreach (IFeature serviceFeature in _cachedServiceFeatures)
 			{
-				serviceFeature.OnApplicationPause(pauseStatus);
+				if(serviceFeature is IFocusPauseFeature pauseFeature)
+                    pauseFeature.OnApplicationPause(pauseStatus);
 			}
 
 			foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
 			{
-				gameplayFeature.OnApplicationPause(pauseStatus);
+				if(gameplayFeature is IFocusPauseFeature pauseFeature)
+                    pauseFeature.OnApplicationPause(pauseStatus);
 			}
 		}
 
@@ -77,13 +89,15 @@ namespace Lukomor.Domain.Contexts
 			DestroyGameplayFeatures();
 		}
 
-		#endregion
-		
-		private void InstallServiceFeatures()
+        #endregion
+
+        protected abstract IDIContainer CreateLocalContainer();
+
+        private void InstallServiceFeatures()
 		{
 			foreach (var serviceFeatureInstaller in _serviceFeaturesInstallers)
 			{
-				var createdFeature = serviceFeatureInstaller.Create();
+				var createdFeature = serviceFeatureInstaller.Create(Container);
 
 				_cachedServiceFeatures.Add(createdFeature);
 			}
@@ -93,7 +107,7 @@ namespace Lukomor.Domain.Contexts
 		{
 			foreach (var gameplayFeatureInstaller in _gameplayFeatureInstallers)
 			{
-				var createdFeature = gameplayFeatureInstaller.Create();
+				var createdFeature = gameplayFeatureInstaller.Create(Container);
 
 				_cachedGameplayFeatures.Add(createdFeature);	
 			}
@@ -101,17 +115,19 @@ namespace Lukomor.Domain.Contexts
 
 		private void InitializeServiceFeatures()
 		{
-			foreach (var serviceFeature in _cachedServiceFeatures)
+			foreach (IFeature serviceFeature in _cachedServiceFeatures)
 			{
-				serviceFeature.InitializeAsync();
+				if(serviceFeature is IAsyncFeature asyncFeature)
+                    asyncFeature.InitializeAsync();
 			}
 		}
 
 		private void InitializeGameplayFeatures()
 		{
-			foreach (var gameplayFeature in _cachedGameplayFeatures)
+			foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
 			{
-				gameplayFeature.InitializeAsync();
+				if(gameplayFeature is IAsyncFeature asyncFeature)
+                    asyncFeature.InitializeAsync();
 			}
 		}
 
@@ -126,9 +142,12 @@ namespace Lukomor.Domain.Contexts
 
 		private void DestroyServiceFeatures()
 		{
-			foreach (var serviceFeature in _cachedServiceFeatures)
+			foreach (IFeature serviceFeature in _cachedServiceFeatures)
 			{
-				serviceFeature.DestroyAsync();
+				if(serviceFeature is IAsyncFeature asyncFeature)
+                    asyncFeature.DestroyAsync();
+				if(serviceFeature is IDisposable disposable)
+					disposable.Dispose();
 			}
 			
 			_cachedServiceFeatures.Clear();
@@ -141,9 +160,12 @@ namespace Lukomor.Domain.Contexts
 
 		private void DestroyGameplayFeatures()
 		{
-			foreach (var gameplayFeature in _cachedGameplayFeatures)
+			foreach (IFeature gameplayFeature in _cachedGameplayFeatures)
 			{
-				gameplayFeature.DestroyAsync();
+				if(gameplayFeature is IAsyncFeature asyncFeature)
+                    asyncFeature.DestroyAsync();
+				if(gameplayFeature is IDisposable disposable)
+					disposable.Dispose();
 			}
 			
 			_cachedGameplayFeatures.Clear();
@@ -153,5 +175,7 @@ namespace Lukomor.Domain.Contexts
 				featureInstaller.Dispose();
 			}
 		}
+
+
     }
 }

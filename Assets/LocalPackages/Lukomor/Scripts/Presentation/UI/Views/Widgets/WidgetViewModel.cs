@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Lukomor.Presentation.Views.Widgets
+namespace WKosArch.Presentation.Views.Widgets
 {
     public class WidgetViewModel : ViewModel
     {

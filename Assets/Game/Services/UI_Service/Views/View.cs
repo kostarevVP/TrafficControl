@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace WKosArch.UI_Service.Views
+namespace WKosArch.UIService.Views
 {
     public abstract class View<TViewModel> : MonoBehaviour, IView<TViewModel> where TViewModel : ViewModel
     {

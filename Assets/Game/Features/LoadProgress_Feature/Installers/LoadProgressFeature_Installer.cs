@@ -1,37 +1,39 @@
-using Assets.Game.Services.Progress_Service.api;
-using Lukomor.Common.DIContainer;
-using Lukomor.Domain.Contexts;
-using Lukomor.Domain.Features;
-using Lukomor.Domain.Scenes;
-using Lukomor.Extentions;
-using Lukomor.Features.Scenes;
+using Assets.Game.Services.ProgressService.api;
+using WKosArch.Domain.Contexts;
+using WKosArch.Domain.Features;
+using WKosArch.Extentions;
+using WKosArch.Services.Scenes;
 using UnityEngine;
+using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+using WKosArch.Services.StaticDataServices;
 
-[CreateAssetMenu(fileName = "LoadProgressFeature_Installer", menuName = "Game/Installers/LoadProgressFeature_Installer")]
-public class LoadProgressFeature_Installer : FeatureInstaller
+namespace WKosArch.Features.LoadProgressFeature
 {
-    private ILoadProgressFeature _feature;
-    //private ISceneManager _sceneManager => new DIVar<ISceneManager>().Value;
-    public override IFeature Create()
+    [CreateAssetMenu(fileName = "LoadProgressFeature_Installer", menuName = "Game/Installers/LoadProgressFeature_Installer")]
+    public class LoadProgressFeature_Installer : FeatureInstaller
     {
-        IProgressService progressService = new DIVar<IProgressService>().Value;
-        ISaveLoadService saveLoadService = new DIVar<ISaveLoadService>().Value;
-        IStaticDataService staticDataService = new DIVar<IStaticDataService>().Value;
-        ISceneManagementService sceneManagementService = new DIVar<ISceneManagementService>().Value;
+        private ILoadProgressFeature _feature;
+        public override IFeature Create(IDIContainer container)
+        {
+            var progressService = container.Resolve<IProgressService>();
+            var saveLoadService = container.Resolve<ISaveLoadService>();
+            var staticDataService = container.Resolve<IStaticDataService>();
+            var sceneManagementService = container.Resolve<ISceneManagementService>();
 
-        _feature = new LoadProgressFeature(progressService, saveLoadService, staticDataService);
-        _feature.LoadProgressOrInitNew();
+            _feature = new LoadProgressFeature(progressService, saveLoadService, staticDataService);
+
+            _feature.LoadProgressOrInitNew();
 
 
-        DI.Bind(_feature);
+            container.Bind(_feature);
 
-        Log.PrintColor($"[ILoadProgressFeature] Create and Bind", Color.cyan);
+            Log.PrintColor($"[ILoadProgressFeature] Create and Bind", Color.cyan);
 
-        //_sceneManager.LoadScene(progressService.Progress.SceneIndex);
-        sceneManagementService.LoadScene(progressService.Progress.SceneIndex);
+            sceneManagementService.LoadScene(progressService.Progress.SceneIndex);
 
-        return _feature;
-    }
+            return _feature;
+        }
 
-    public override void Dispose() { }
+        public override void Dispose() { }
+    } 
 }

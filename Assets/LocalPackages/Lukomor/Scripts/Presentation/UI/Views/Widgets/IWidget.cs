@@ -1,4 +1,4 @@
-﻿namespace Lukomor.Presentation.Views.Widgets
+﻿namespace WKosArch.Presentation.Views.Widgets
 {
     public interface IWidget : IView { }
 

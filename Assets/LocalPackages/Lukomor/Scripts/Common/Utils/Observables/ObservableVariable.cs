@@ -1,4 +1,4 @@
-﻿namespace Lukomor.Common.Utils.Observables {
+﻿namespace WKosArch.Common.Utils.Observables {
 	public sealed class ObservableVariable<T> {
 		public delegate void ChangeVariableHandler(T newValue);
 		public event ChangeVariableHandler Changed;

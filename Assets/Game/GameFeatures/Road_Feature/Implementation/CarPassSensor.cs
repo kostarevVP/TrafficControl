@@ -1,6 +1,6 @@
-using Assets.Game.Services.Progress_Service.api;
-using Lukomor.Common.DIContainer;
-using Lukomor.Extentions;
+using Assets.Game.Services.ProgressService.api;
+using WKosArch.Common.DIContainer;
+using WKosArch.Extentions;
 using UnityEngine;
 
 public class CarPassSensor : MonoBehaviour

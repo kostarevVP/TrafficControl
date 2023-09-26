@@ -1,7 +1,7 @@
-using Assets.Game.Services.Progress_Service.api;
+using Assets.Game.Services.ProgressService.api;
 using Cysharp.Threading.Tasks;
 
-namespace Assets.Game.Services.Progress_Service.Implementation
+namespace WKosArch.Services.ProgressService
 {
     public class ProgressService : IProgressService
     {

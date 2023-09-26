@@ -1,32 +1,33 @@
-using Lukomor.Common.DIContainer;
-using Lukomor.Domain.Contexts;
-using Lukomor.Domain.Features;
-using Lukomor.Features.Scenes;
+using WKosArch.Domain.Contexts;
+using WKosArch.Domain.Features;
+using WKosArch.Services.Scenes;
+using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+using WKosArch.Services.StaticDataServices;
 using UnityEngine;
 
-namespace WKosArch.UI_Service
+namespace  WKosArch.Services.UIService
+
 {
     [CreateAssetMenu(fileName = "UIService_Installer", menuName = "Game/Installers/UIService_Installer")]
     public class UIService_Installer : FeatureInstaller
     {
         private IUIService _service;
-        public override IFeature Create()
+        public override IFeature Create(IDIContainer container)
         {
-            //var sceneManager = new DIVar<ISceneManager>().Value;
-            var sceneMenegmentService = new DIVar<ISceneManagementService>().Value;
-            var staticDataService = new DIVar<IStaticDataService>().Value;
+            var sceneMenegmentService = container.Resolve<ISceneManagementService>();
+            var staticDataService = container.Resolve<IStaticDataService>();
 
             _service = new UIService(staticDataService, sceneMenegmentService);
 
+            container.Bind(_service);
+            container.Bind(_service.UI);
 
-            DI.Bind(_service);
-            DI.Bind(_service.UI);
             return _service;
         }
 
         public override void Dispose()
         {
-            DI.Unbind<IUIService>();
+            
         }
     }
 }

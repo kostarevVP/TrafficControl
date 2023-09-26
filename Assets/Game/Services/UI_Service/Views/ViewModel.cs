@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Lukomor.Common;
+using WKosArch.Common;
 using UnityEngine;
 
-namespace WKosArch.UI_Service.Views
+namespace WKosArch.UIService.Views
 {
     public abstract class ViewModel : MonoBehaviour
     {

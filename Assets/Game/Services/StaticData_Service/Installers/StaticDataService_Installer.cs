@@ -1,26 +1,26 @@
-using Lukomor.Common.DIContainer;
-using Lukomor.Domain.Contexts;
-using Lukomor.Domain.Features;
-using Lukomor.Extentions;
+using WKosArch.Domain.Contexts;
+using WKosArch.Domain.Features;
+using WKosArch.Extentions;
 using UnityEngine;
+using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 
-    [CreateAssetMenu(fileName = "StaticDataService_Installer", menuName = "Game/Installers/StaticDataService_Installer")]
-public class StaticDataService_Installer : FeatureInstaller
+namespace WKosArch.Services.StaticDataServices
 {
-    private IStaticDataService _feature;
-    public override IFeature Create()
+    [CreateAssetMenu(fileName = "StaticDataService_Installer", menuName = "Game/Installers/StaticDataService_Installer")]
+    public class StaticDataService_Installer : FeatureInstaller
     {
-        _feature = new StaticDataService();
+        private IStaticDataService _feature;
+        public override IFeature Create(IDIContainer container)
+        {
+            _feature = new StaticDataService();
 
-        _feature.LoadGameProgressConfig();
-        _feature.LoadSceneConfigs();    
+            container.Bind(_feature);
 
-        DI.Bind(_feature);
-        Log.PrintColor($"[IStaticDataService] Create and Bind", Color.cyan);
+            Log.PrintColor($"[IStaticDataService] Create and Bind", Color.cyan);
 
+            return _feature;
+        }
 
-        return _feature;
-    }
-
-    public override void Dispose() { }
+        public override void Dispose() { }
+    } 
 }

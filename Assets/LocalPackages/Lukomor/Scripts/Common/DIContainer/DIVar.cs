@@ -1,4 +1,4 @@
-﻿namespace Lukomor.Common.DIContainer
+﻿namespace WKosArch.Common.DIContainer
 {
     public sealed class DIVar<T> where T : class
 	{
@@ -7,14 +7,12 @@
 			{
 				if (_value == null)
 				{
-					_value = DI.Get<T>();
+					_value = DI.GetResolve<T>();
 				}
 
 				return _value;
 			}
 		}
-
-		public bool HasValue => DI.Has<T>();
 
 		private T _value;
 	}

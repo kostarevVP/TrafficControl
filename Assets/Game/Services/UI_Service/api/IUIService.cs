@@ -1,7 +1,11 @@
-﻿using Lukomor.Domain.Features;
-using WKosArch.UI_Service;
+﻿using System;
+using WKosArch.Domain.Features;
+using WKosArch.UIService;
 
-public interface IUIService : IFeature
+namespace WKosArch.Services.UIService
 {
-    UserInterface UI { get; }
+    public interface IUIService : IFeature
+    {
+        UserInterface UI { get; }
+    }
 }

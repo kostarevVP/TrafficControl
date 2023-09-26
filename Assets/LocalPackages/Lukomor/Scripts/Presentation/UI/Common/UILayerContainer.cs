@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Lukomor.Presentation.Common {
+namespace WKosArch.Presentation.Common {
 	public class UILayerContainer : MonoBehaviour {
 		[SerializeField] private UILayer _layer;
 

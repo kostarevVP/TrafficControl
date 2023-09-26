@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Lukomor.Presentation.Views.Windows
+namespace WKosArch.Presentation.Views.Windows
 {
     public class WindowsStack
     {

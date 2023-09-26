@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Lukomor.Extentions
+namespace WKosArch.Extentions
 {
     public static class Log 
     {

@@ -1,4 +1,4 @@
-﻿namespace WKosArch.UI_Service.Views.Windows
+﻿namespace WKosArch.UIService.Views.Windows
 {
     public interface IHomeWindow : IWindow { }
 }

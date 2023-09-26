@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WKosArch.UI_Service.Common;
-using WKosArch.UI_Service.Views.Windows;
+using WKosArch.Services.UIService.Common;
+using WKosArch.UIService.Views.Windows;
 
-namespace WKosArch.UI_Service
+namespace WKosArch.Services.UIService
 {
     public class UserInterface : MonoBehaviour
     {
@@ -160,6 +160,7 @@ namespace WKosArch.UI_Service
             {
                 createdWindowViewModel.Window.HideInstantly();
             }
+
 
             return createdWindowViewModel;
         }

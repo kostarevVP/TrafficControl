@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 
-namespace Lukomor.Presentation.Views.Windows {
+namespace WKosArch.Presentation.Views.Windows {
 	public interface IWindow<out TWindowViewModel> : IWindow, IView<TWindowViewModel>
 		where TWindowViewModel : WindowViewModel { }
 

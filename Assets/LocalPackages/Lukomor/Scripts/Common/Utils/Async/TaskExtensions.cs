@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics;
 
-namespace Lukomor.Common.Utils.Async {
+namespace WKosArch.Common.Utils.Async {
 	public static class TaskExtensions {
 		/// <summary>
         /// Executes a task in a async void context. Uncaught exceptions are logged to the console

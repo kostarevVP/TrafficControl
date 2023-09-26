@@ -1,45 +1,37 @@
-using Assets.Game.Services.Progress_Service.api;
-using Cysharp.Threading.Tasks;
+using Assets.Game.Services.ProgressService.api;
+using WKosArch.Services.StaticDataServices;
 
-public class LoadProgressFeature : ILoadProgressFeature
+namespace WKosArch.Features.LoadProgressFeature
 {
-    public bool IsReady => _isReady;
-
-    private readonly IProgressService _progressService;
-    private readonly ISaveLoadService _saveLoadService;
-    private readonly IStaticDataService _staticDataService;
-    private bool _isReady;
-
-    public LoadProgressFeature(IProgressService progressService, ISaveLoadService saveLoadService, IStaticDataService staticDataService)
+    public class LoadProgressFeature : ILoadProgressFeature
     {
-        _progressService = progressService;
-        _saveLoadService = saveLoadService;
-        _staticDataService = staticDataService;
-    }
+        public bool IsReady => _isReady;
 
-    public UniTask InitializeAsync()
-    {
-        _isReady = true;
-        return UniTask.CompletedTask;
-    }
+        private readonly IProgressService _progressService;
+        private readonly ISaveLoadService _saveLoadService;
+        private readonly IStaticDataService _staticDataService;
 
-    public void LoadProgressOrInitNew() =>
-        _progressService.Progress = _saveLoadService.LoadProgress() ?? NewProgress();
+        private bool _isReady;
 
-    private GameProgress NewProgress()
-    {
-        var progress = new GameProgress();
+        public LoadProgressFeature(IProgressService progressService, ISaveLoadService saveLoadService, IStaticDataService staticDataService)
+        {
+            _progressService = progressService;
+            _saveLoadService = saveLoadService;
+            _staticDataService = staticDataService;
 
-        progress.SceneIndex = _staticDataService.GameProgressConfig.SceneIndex;
+            _isReady = true;
+        }
 
-        return progress;
-    }
+        public void LoadProgressOrInitNew() =>
+            _progressService.Progress = _saveLoadService.LoadProgress() ?? NewProgress();
 
-    public UniTask DestroyAsync()
-    {
-        return UniTask.CompletedTask;
-    }
+        private GameProgress NewProgress()
+        {
+            var progress = new GameProgress();
 
-    public void OnApplicationFocus(bool hasFocus) { }
-    public void OnApplicationPause(bool pauseStatus) { }
+            progress.SceneIndex = _staticDataService.GameProgressConfig.SceneIndex;
+
+            return progress;
+        }
+    } 
 }

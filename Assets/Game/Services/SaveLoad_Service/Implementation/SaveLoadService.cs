@@ -1,56 +1,47 @@
-using Assets.Game.Services.Progress_Service.api;
-using Cysharp.Threading.Tasks;
+using Assets.Game.Services.ProgressService.api;
 using UnityEngine;
 
-public class SaveLoadService : ISaveLoadService
+namespace WKosArch.Services.SaveLoadService
 {
-    private const string ProgressKEY = "Progress";
-
-    private readonly IProgressService _progressService;
-    private bool _isReady;
-
-    public bool IsReady => _isReady;
-
-    public SaveLoadService(IProgressService progressService)
+    public class SaveLoadService : ISaveLoadService
     {
-        _progressService = progressService;
-    }
+        private const string ProgressKEY = "Progress";
+        public bool IsReady => _isReady;
 
-    public UniTask InitializeAsync()
-    {
-        _isReady = true;
-        return UniTask.CompletedTask;
-    }
-    public UniTask DestroyAsync() =>
-        UniTask.CompletedTask;
+        private readonly IProgressService _progressService;
+        private bool _isReady;
 
-    public GameProgress LoadProgress()
-    {
-        var save = PlayerPrefs.GetString(ProgressKEY)?.ToDeserialized<GameProgress>();
-        PlayerPrefs.Save();
-        return save;
-    }
 
-    public void SaveProgress()
-    {
-        PlayerPrefs.SetString(ProgressKEY, _progressService.Progress.ToJson());
-        PlayerPrefs.Save();
-    }
-
-    public void OnApplicationFocus(bool hasFocus)
-    {
-        if (!hasFocus)
+        public SaveLoadService(IProgressService progressService)
         {
-            SaveProgress();
+            _progressService = progressService;
+
+            _isReady = true;
+        }
+
+        public GameProgress LoadProgress()
+        {
+            var save = PlayerPrefs.GetString(ProgressKEY)?.ToDeserialized<GameProgress>();
+            PlayerPrefs.Save();
+            return save;
+        }
+
+        public void SaveProgress()
+        {
+            PlayerPrefs.SetString(ProgressKEY, _progressService.Progress.ToJson());
+            PlayerPrefs.Save();
+        }
+
+        public void OnApplicationFocus(bool hasFocus)
+        {
+            if (!hasFocus)
+                SaveProgress();
+        }
+
+        public void OnApplicationPause(bool pauseStatus)
+        {
+            if (pauseStatus)
+                SaveProgress();
         }
     }
-
-    public void OnApplicationPause(bool pauseStatus)
-    {
-        if (pauseStatus)
-        {
-            SaveProgress();
-        }
-    }
-
 }

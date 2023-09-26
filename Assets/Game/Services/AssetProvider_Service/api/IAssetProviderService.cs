@@ -1,4 +1,4 @@
-using Lukomor.Domain.Features;
+using WKosArch.Domain.Features;
 using UnityEngine;
 
 public interface IAssetProviderService : IFeature

@@ -2,7 +2,7 @@
 using System;
 using UnityEngine.SceneManagement;
 
-namespace Lukomor.Features.Scenes
+namespace WKosArch.Services.Scenes
 {
     public class SceneManagementService : ISceneManagementService
     {

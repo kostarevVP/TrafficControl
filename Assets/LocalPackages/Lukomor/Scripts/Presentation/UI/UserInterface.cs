@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Lukomor.Presentation.Common;
-using Lukomor.Presentation.Views.Windows;
+using WKosArch.Presentation.Common;
+using WKosArch.Presentation.Views.Windows;
 using UnityEngine;
 
-namespace Lukomor.Presentation
+namespace WKosArch.Presentation
 {
     public class UserInterface : MonoBehaviour
     {

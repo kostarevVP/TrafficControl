@@ -1,7 +1,7 @@
-﻿using Lukomor.Domain.Features;
+﻿using WKosArch.Domain.Features;
 using System;
 
-namespace Lukomor.Features.Scenes
+namespace WKosArch.Services.Scenes
 {
     public interface ISceneManagementService : IFeature
     {

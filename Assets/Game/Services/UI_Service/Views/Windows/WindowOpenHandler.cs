@@ -1,7 +1,7 @@
-﻿using Lukomor.Common;
-using WKosArch.UI_Service.Common;
+﻿using WKosArch.Common;
+using WKosArch.Services.UIService;
 
-namespace WKosArch.UI_Service.Views.Windows
+namespace WKosArch.UIService.Views.Windows
 {
     public class WindowOpenHandler : IWindowOpenHandler
     {

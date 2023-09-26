@@ -1,15 +1,21 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace Lukomor.Domain.Features
+namespace WKosArch.Domain.Features
 {
-	public interface IFeature
-	{
-		bool IsReady { get; }
+    public interface IFeature
+    {
+        bool IsReady { get; }
+    }
 
+    public interface IAsyncFeature : IFeature
+    {
         UniTask InitializeAsync();
         UniTask DestroyAsync();
+    }
 
-		void OnApplicationFocus(bool hasFocus);
-		void OnApplicationPause(bool pauseStatus);
+    public interface IFocusPauseFeature : IFeature
+    {
+        void OnApplicationFocus(bool hasFocus);
+        void OnApplicationPause(bool pauseStatus);
     }
 }

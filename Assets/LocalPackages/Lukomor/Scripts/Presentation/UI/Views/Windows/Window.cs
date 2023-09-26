@@ -1,10 +1,10 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using Lukomor.Common.DIContainer;
-using Lukomor.Presentation.Common;
+using WKosArch.Common.DIContainer;
+using WKosArch.Presentation.Common;
 using UnityEngine;
 
-namespace Lukomor.Presentation.Views.Windows
+namespace WKosArch.Presentation.Views.Windows
 {
 	public abstract class Window<TWindowViewModel> : View<TWindowViewModel>, IWindow<TWindowViewModel>
 		where TWindowViewModel : WindowViewModel

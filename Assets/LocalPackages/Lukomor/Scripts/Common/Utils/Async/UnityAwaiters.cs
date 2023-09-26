@@ -1,15 +1,16 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Threading;
-using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
-namespace Lukomor.Common.Utils.Async {
-	public class UnityAwaiters {
-		private static readonly WaitForEndOfFrame endOfFrameWaiter = new WaitForEndOfFrame();
+namespace WKosArch.Common.Utils.Async
+{
+    public class UnityAwaiters
+    {
+        private static readonly WaitForEndOfFrame endOfFrameWaiter = new WaitForEndOfFrame();
 
-        public static async Task WaitForSeconds(float seconds, CancellationToken cancellationToken = default)
+        public static async UniTask WaitForSeconds(float seconds, CancellationToken cancellationToken = default)
         {
 #if UNITY_EDITOR
             if (!UnityEngine.Application.isPlaying)
@@ -24,11 +25,11 @@ namespace Lukomor.Common.Utils.Async {
             while (Time.time < endTime)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                await Task.Yield();
+                await UniTask.Yield();
             }
         }
-        
-        public static async Task WaitForSecondsRealtime(float seconds, CancellationToken cancellationToken = default)
+
+        public static async UniTask WaitForSecondsRealtime(float seconds, CancellationToken cancellationToken = default)
         {
 #if UNITY_EDITOR
             if (!UnityEngine.Application.isPlaying)
@@ -37,7 +38,7 @@ namespace Lukomor.Common.Utils.Async {
                 while ((float)EditorApplication.timeSinceStartup < editorEndTime)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
-                    await Task.Yield();
+                    await UniTask.Yield();
                 }
 
                 return;
@@ -48,39 +49,39 @@ namespace Lukomor.Common.Utils.Async {
             while (Time.realtimeSinceStartup < endTime)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                await Task.Yield();
+                await UniTask.Yield();
             }
         }
 
-        public static async Task WaitUntil(Func<bool> predicate, CancellationToken cancellationToken = default)
+        public static async UniTask WaitUntil(Func<bool> predicate, CancellationToken cancellationToken = default)
         {
             while (!predicate.Invoke())
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                await Task.Yield();
+                await UniTask.Yield();
             }
         }
 
-        public static async Task WaitWhile(Func<bool> predicate, CancellationToken cancellationToken = default)
+        public static async UniTask WaitWhile(Func<bool> predicate, CancellationToken cancellationToken = default)
         {
             while (predicate.Invoke())
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                await Task.Yield();
+                await UniTask.Yield();
             }
         }
 
-        public static Task WaitForTime(TimeSpan timeSpan, CancellationToken cancellationToken = default)
+        public static UniTask WaitForTime(TimeSpan timeSpan, CancellationToken cancellationToken = default)
         {
             return WaitForSeconds((float)timeSpan.TotalSeconds, cancellationToken);
         }
 
-        public static Task WaitForRealtime(TimeSpan timeSpan, CancellationToken cancellationToken = default)
+        public static UniTask WaitForRealtime(TimeSpan timeSpan, CancellationToken cancellationToken = default)
         {
             return WaitForSecondsRealtime((float)timeSpan.TotalSeconds, cancellationToken);
         }
 
-        public static async Task WaitForFrames(int frameCount, CancellationToken cancellationToken = default)
+        public static async UniTask WaitForFrames(int frameCount, CancellationToken cancellationToken = default)
         {
             int current = 0;
             while (current < frameCount)
@@ -92,13 +93,13 @@ namespace Lukomor.Common.Utils.Async {
 
         public static YieldAwaitable WaitNextFrame()
         {
-            return Task.Yield();
+            return UniTask.Yield();
         }
 
-        public static async Task WaitNextFrame(CancellationToken cancellationToken)
+        public static async UniTask WaitNextFrame(CancellationToken cancellationToken)
         {
-            await Task.Yield();
+            await UniTask.Yield();
             cancellationToken.ThrowIfCancellationRequested();
         }
-	}
+    }
 }

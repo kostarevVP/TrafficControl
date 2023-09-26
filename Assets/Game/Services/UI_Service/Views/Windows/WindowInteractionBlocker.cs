@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace WKosArch.UI_Service.Views.Windows
+namespace WKosArch.UIService.Views.Windows
 {
 	public class WindowInteractionBlocker : MonoBehaviour
 	{

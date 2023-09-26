@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Lukomor.Presentation.Common {
+namespace WKosArch.Presentation.Common {
 	public abstract class Transition : MonoBehaviour
 	{
 		public bool IsPlaying { get; private set; }

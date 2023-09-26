@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lukomor.Features.Scenes
+namespace WKosArch.Services.Scenes
 {
     public interface ILoadingScreen
     {

@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 
-namespace WKosArch.UI_Service.Views.Windows
+namespace WKosArch.UIService.Views.Windows
 {
     public interface IWindow<out TWindowViewModel> : IWindow, IView<TWindowViewModel>
         where TWindowViewModel : WindowViewModel

@@ -1,9 +1,10 @@
-﻿using Lukomor.Domain.Features;
+﻿using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+using WKosArch.Domain.Features;
 
-namespace Lukomor.Domain.Contexts
+namespace WKosArch.Domain.Contexts
 {
     public interface IFeatureInstaller
     {
-        IFeature Create();
+        IFeature Create(IDIContainer localContainer);
     }
 }

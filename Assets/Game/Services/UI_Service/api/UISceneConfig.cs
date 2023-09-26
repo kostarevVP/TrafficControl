@@ -1,9 +1,9 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using WKosArch.UI_Service.Views.Windows;
+using WKosArch.UIService.Views.Windows;
 
-namespace WKosArch.UI_Service
+namespace WKosArch.Services.UIService
 {
     [CreateAssetMenu(fileName = "UI_SceneConfig", menuName = "UI/Configs/_UI_SceneConfig")]
     public class UISceneConfig : ScriptableObject

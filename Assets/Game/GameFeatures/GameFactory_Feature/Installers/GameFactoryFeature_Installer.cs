@@ -1,25 +1,29 @@
-using Lukomor.Common.DIContainer;
-using Lukomor.Domain.Contexts;
-using Lukomor.Domain.Features;
-using Lukomor.Extentions;
+using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+using WKosArch.Domain.Contexts;
+using WKosArch.Domain.Features;
+using WKosArch.Extentions;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GameFactoryFeature_Installer", menuName = "Game/Installers/GameFactoryFeature_Installer")]
-public class GameFactoryFeature_Installer : FeatureInstaller
+namespace WKosArch.GameFactoryFeature
 {
-    private IGameFactoryFeature _feature;
-
-    public override IFeature Create()
+    [CreateAssetMenu(fileName = "GameFactoryFeature_Installer", menuName = "Game/Installers/GameFactoryFeature_Installer")]
+    public class GameFactoryFeature_Installer : FeatureInstaller
     {
-        var assetProviderService = new DIVar<IAssetProviderService>().Value;
+        private IGameFactoryFeature _feature;
 
-        _feature = new GameFactoryFeature(assetProviderService);
+        public override IFeature Create(IDIContainer container)
+        {
+            var assetProviderService = container.Resolve<IAssetProviderService>();
 
-        DI.Bind(_feature);
-        Log.PrintColor($"[IGameFactoryFeature] Create and Bind", Color.cyan);
+            _feature = new GameFactoryFeature(assetProviderService);
 
-        return _feature;
+            container.Bind(_feature);
+
+            Log.PrintColor($"[IGameFactoryFeature] Create and Bind", Color.cyan);
+
+            return _feature;
+        }
+
+        public override void Dispose() { }
     }
-
-    public override void Dispose() { }
 }

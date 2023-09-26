@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Lukomor.Presentation.Views.Windows
+namespace WKosArch.Presentation.Views.Windows
 {
     [Serializable]
     public class SceneConfigUI

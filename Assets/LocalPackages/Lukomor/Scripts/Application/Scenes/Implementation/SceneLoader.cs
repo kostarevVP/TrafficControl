@@ -1,11 +1,11 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using Lukomor.Common.Utils.Async;
-using Lukomor.Domain.Contexts;
-using Lukomor.Domain.Scenes;
+using WKosArch.Common.Utils.Async;
+using WKosArch.Domain.Contexts;
+using WKosArch.Domain.Scenes;
 using UnityEngine;
 
-namespace Lukomor.Application.Scenes
+namespace WKosArch.Application.Scenes
 {
     public class SceneLoader : ISceneLoader
     {

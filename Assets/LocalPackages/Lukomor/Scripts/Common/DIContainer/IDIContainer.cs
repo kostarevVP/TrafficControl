@@ -1,9 +1,12 @@
-﻿namespace Assets.LocalPackages.Lukomor.Scripts.Common.DIContainer
+﻿using Cysharp.Threading.Tasks.Internal;
+using System;
+
+namespace Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer
 {
-    public interface IDIContainer
+    public interface IDIContainer : IDisposable
     {
-        public bool IsRoot { get; }
-        public void Bind<T>(T instance) where T : class;
-        public T Resolve<T>() where T : class;
+        bool IsRoot { get; }
+        void Bind<T>(T instance) where T : class;
+        T Resolve<T>() where T : class;
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
-using Lukomor.Presentation.Common;
+using WKosArch.Presentation.Common;
 
-namespace Lukomor.Presentation.Views.Windows
+namespace WKosArch.Presentation.Views.Windows
 {
     [Serializable]
     public struct WindowSettings

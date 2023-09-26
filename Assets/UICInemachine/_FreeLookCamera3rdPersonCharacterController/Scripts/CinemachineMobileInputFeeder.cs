@@ -1,5 +1,5 @@
 ﻿using Cinemachine;
-using Lukomor.Extentions;
+using WKosArch.Extentions;
 using UnityEngine;
 
 

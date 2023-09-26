@@ -1,5 +1,5 @@
 ﻿using UnityEngine.UI;
-using WKosArch.UI_Service.Views.Windows;
+using WKosArch.UIService.Views.Windows;
 
 public class WindowSettingButton : Window<SettingButtonViewModel>, IHomeWindow
 {

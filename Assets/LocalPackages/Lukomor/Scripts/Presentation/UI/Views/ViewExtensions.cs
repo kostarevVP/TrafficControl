@@ -1,4 +1,4 @@
-﻿namespace Lukomor.Presentation.Views
+﻿namespace WKosArch.Presentation.Views
 {
     public static class ViewExtensions
     {

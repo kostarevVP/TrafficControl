@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Lukomor.Presentation.Views.Windows
+namespace WKosArch.Presentation.Views.Windows
 {
 	public abstract class DialogWindow<TWindowViewModel> : Window<TWindowViewModel> where TWindowViewModel : WindowViewModel
 	{

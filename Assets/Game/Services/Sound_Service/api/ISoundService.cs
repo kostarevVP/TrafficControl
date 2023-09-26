@@ -1,7 +1,9 @@
-﻿using Lukomor.Domain.Features;
-using WKosArch.Representation.Audio_Service;
+﻿using WKosArch.Domain.Features;
 
-public interface ISoundService : IFeature
+namespace WKosArch.Services.SoundService
 {
-    SoundManager SoundManager { get; }
+    public interface ISoundService : IFeature
+    {
+        SoundManager SoundManager { get; }
+    }
 }

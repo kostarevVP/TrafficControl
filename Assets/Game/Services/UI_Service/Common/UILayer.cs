@@ -1,4 +1,4 @@
-﻿namespace WKosArch.UI_Service.Common
+﻿namespace WKosArch.Services.UIService.Common
 {
     public enum UILayer
     {

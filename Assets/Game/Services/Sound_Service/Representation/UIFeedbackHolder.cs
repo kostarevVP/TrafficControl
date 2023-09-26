@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace WKosArch.Audio_Service.Representation
+namespace WKosArch.Services.SoundService
 {
     public class UIFeedbackHolder : MonoBehaviour
     {

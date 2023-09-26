@@ -1,26 +1,28 @@
-using Assets.Game.Services.Progress_Service.api;
-using Assets.Game.Services.Progress_Service.Implementation;
-using Lukomor.Common.DIContainer;
-using Lukomor.Domain.Contexts;
-using Lukomor.Domain.Features;
-using Lukomor.Extentions;
+using Assets.Game.Services.ProgressService.api;
+using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+using WKosArch.Domain.Contexts;
+using WKosArch.Domain.Features;
+using WKosArch.Extentions;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ProgressService_Installer", menuName = "Game/Installers/ProgressService_Installer")]
-public class ProgressService_Installer : FeatureInstaller
+namespace WKosArch.Services.ProgressService
 {
-    private IProgressService _service;
-
-    public override IFeature Create()
+    [CreateAssetMenu(fileName = "ProgressService_Installer", menuName = "Game/Installers/ProgressService_Installer")]
+    public class ProgressService_Installer : FeatureInstaller
     {
-        _service = new ProgressService();
+        private IProgressService _service;
 
-        DI.Bind(_service);
+        public override IFeature Create(IDIContainer container)
+        {
+            _service = new ProgressService();
 
-        Log.PrintColor($"[IProgressService] Create and Bind", Color.cyan);
+            container.Bind(_service);
 
-        return _service;
+            Log.PrintColor($"[IProgressService] Create and Bind", Color.cyan);
+
+            return _service;
+        }
+
+        public override void Dispose() { }
     }
-
-    public override void Dispose() { }
 }

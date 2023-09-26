@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace Lukomor.Domain.Features
+namespace WKosArch.Domain.Features
 {
 	public abstract class Feature : IFeature
 	{

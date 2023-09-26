@@ -1,7 +1,7 @@
-﻿using Lukomor.Presentation.Views.Windows;
+﻿using WKosArch.Presentation.Views.Windows;
 using UnityEngine;
 
-namespace Lukomor.Presentation
+namespace WKosArch.Presentation
 {
     [CreateAssetMenu(fileName = "UISceneConfig", menuName = "UI/Configs/New UI Scene Config")]
     public class UISceneConfig : ScriptableObject

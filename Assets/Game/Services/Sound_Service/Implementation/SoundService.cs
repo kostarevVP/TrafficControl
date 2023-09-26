@@ -1,48 +1,43 @@
-using Assets.Game.Services.Progress_Service.api;
-using Cysharp.Threading.Tasks;
+using Assets.Game.Services.ProgressService.api;
 using System.Collections.Generic;
-using WKosArch.Representation.Audio_Service;
 
-public class SoundService : ISoundService
+namespace WKosArch.Services.SoundService
 {
-    public SoundManager SoundManager { get; private set; }
-    public List<ILoadProgress> ProgressReaders { get; } = new List<ILoadProgress>();
-    public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
-    public bool IsReady => _isReady;
-
-
-    private bool _isReady;
-
-    public UniTask InitializeAsync()
+    public class SoundService : ISoundService
     {
-        SoundManager = SoundManager.CreateInstance();
-        RegisterProgressWatchers(SoundManager);
-        _isReady = true;
-        return UniTask.CompletedTask;
-    }
+        public SoundManager SoundManager { get; private set; }
+        public List<ILoadProgress> ProgressReaders { get; } = new List<ILoadProgress>();
+        public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
+        public bool IsReady => _isReady;
 
-    public UniTask DestroyAsync() =>
-        UniTask.CompletedTask;
 
-    private void RegisterProgressWatchers(SoundManager gameObject)
-    {
-        foreach (var progressReader in gameObject.GetComponentsInChildren<ISavedProgress>())
+        private bool _isReady;
+
+        public SoundService()
         {
-            Register(progressReader);
-        }
-    }
+            SoundManager = SoundManager.CreateInstance();
+            
+            RegisterProgressWatchers(SoundManager);
 
-    private void Register(ISavedProgress progressReader)
-    {
-        if (progressReader is ISavedProgress progressWriter)
-        {
-            ProgressWriters.Add(progressWriter);
+            _isReady = true;
         }
 
-        ProgressReaders.Add(progressReader);
+        private void RegisterProgressWatchers(SoundManager gameObject)
+        {
+            foreach (var progressReader in gameObject.GetComponentsInChildren<ISavedProgress>())
+            {
+                Register(progressReader);
+            }
+        }
+
+        private void Register(ISavedProgress progressReader)
+        {
+            if (progressReader is ISavedProgress progressWriter)
+            {
+                ProgressWriters.Add(progressWriter);
+            }
+
+            ProgressReaders.Add(progressReader);
+        }
     }
-
-    public void OnApplicationFocus(bool hasFocus) { }
-
-    public void OnApplicationPause(bool pauseStatus) { }
 }

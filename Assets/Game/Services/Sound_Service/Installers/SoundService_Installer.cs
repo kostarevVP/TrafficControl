@@ -1,25 +1,29 @@
-using Lukomor.Common.DIContainer;
-using Lukomor.Domain.Contexts;
-using Lukomor.Domain.Features;
-using Lukomor.Extentions;
+using WKosArch.Domain.Contexts;
+using WKosArch.Domain.Features;
+using WKosArch.Extentions;
 using UnityEngine;
+using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 
-[CreateAssetMenu(fileName = "SoundService_Installer", menuName = "Game/Installers/SoundService_Installer")]
-public class SoundService_Installer : FeatureInstaller
+namespace WKosArch.Services.SoundService
 {
-    private ISoundService _service;
-    public override IFeature Create()
+    [CreateAssetMenu(fileName = "SoundService_Installer", menuName = "Game/Installers/SoundService_Installer")]
+    public class SoundService_Installer : FeatureInstaller
     {
-        _service = new SoundService();
+        private ISoundService _service;
 
-        DI.Bind(_service);
-        Log.PrintColor($"[ISoundService] Create and Bind", Color.cyan);
+        public override IFeature Create(IDIContainer container)
+        {
+            _service = new SoundService();
 
-        return _service;
-    }
+            container.Bind(_service);
+            Log.PrintColor($"[ISoundService] Create and Bind", Color.cyan);
 
-    public override void Dispose()
-    {
+            return _service;
+        }
 
+        public override void Dispose()
+        {
+
+        }
     }
 }

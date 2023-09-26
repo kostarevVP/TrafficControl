@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Lukomor.Presentation.Views
+namespace WKosArch.Presentation.Views
 {
     public abstract class View<TViewModel> : MonoBehaviour, IView<TViewModel> where TViewModel : ViewModel
     {

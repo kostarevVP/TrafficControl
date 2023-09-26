@@ -1,6 +1,6 @@
-﻿using Lukomor.Common.DIContainer;
+﻿using WKosArch.Common.DIContainer;
 using UnityEngine;
-using WKosArch.UI_Service.Views.Windows;
+using WKosArch.UIService.Views.Windows;
 
 public class CloseAppViewModel : WindowViewModel
 {

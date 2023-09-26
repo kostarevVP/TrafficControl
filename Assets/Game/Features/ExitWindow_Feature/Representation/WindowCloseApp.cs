@@ -1,7 +1,7 @@
-﻿using Lukomor.Extentions;
+﻿using WKosArch.Extentions;
 using UnityEngine;
 using UnityEngine.UI;
-using WKosArch.UI_Service.Views.Windows;
+using WKosArch.UIService.Views.Windows;
 
 public class WindowCloseApp : Window<CloseAppViewModel>
 {

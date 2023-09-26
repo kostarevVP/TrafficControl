@@ -1,4 +1,4 @@
-﻿namespace Lukomor.Domain.Signals
+﻿namespace WKosArch.Domain.Signals
 {
 	public interface ISignalTower
 	{

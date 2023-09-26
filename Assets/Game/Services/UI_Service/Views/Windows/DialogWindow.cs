@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace WKosArch.UI_Service.Views.Windows
+namespace WKosArch.UIService.Views.Windows
 {
 	public abstract class DialogWindow<TWindowViewModel> : Window<TWindowViewModel> where TWindowViewModel : WindowViewModel
 	{

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Assets.LocalPackages.Lukomor.Scripts.Common.DIContainer
+namespace Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer
 {
     public class DIContainer : IDIContainer
     {

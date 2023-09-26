@@ -1,60 +1,45 @@
-using Lukomor.Common.DIContainer;
-using Lukomor.Domain.Contexts;
-using Lukomor.Domain.Features;
-using Lukomor.Domain.Scenes;
-using Lukomor.Extentions;
-using Lukomor.Features.Scenes;
-using System;
+using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
+using WKosArch.Domain.Contexts;
+using WKosArch.Domain.Features;
+using WKosArch.Extentions;
+using WKosArch.Services.Scenes;
 using UnityEngine;
-using WKosArch.UI_Service;
+using WKosArch.Services.UIService;
 
-[CreateAssetMenu(fileName = "LoadLevelFeature_Installer", menuName = "Game/Installers/LoadLevelFeature_Installer")]
-public class LoadLevelFeature_Installer : FeatureInstaller
+namespace WKosArch.Features.LoadLevelFeature
 {
-    private ILoadLevelFeature _feature;
-
-    //private ISceneManager _sceneManager;
-    private ISceneManagementService _sceneManagementService;
-
-    public override IFeature Create()
+    [CreateAssetMenu(fileName = "LoadLevelFeature_Installer", menuName = "Game/Installers/LoadLevelFeature_Installer")]
+    public class LoadLevelFeature_Installer : FeatureInstaller
     {
-        //_sceneManager = new DIVar<ISceneManager>().Value;
-        _sceneManagementService = new DIVar<ISceneManagementService>().Value;
+        private ILoadLevelFeature _feature;
+        private ISceneManagementService _sceneManagementService;
 
-        var gameFactoryFeature = new DIVar<IGameFactoryFeature>().Value;
-        var ui = new DIVar<UserInterface>().Value;
+        public override IFeature Create(IDIContainer container)
+        {
+            _sceneManagementService = container.Resolve<ISceneManagementService>();
+            var gameFactoryFeature = container.Resolve<IGameFactoryFeature>();
+            var ui = container.Resolve<UserInterface>();
 
-        _feature = new LoadLevelFeature(gameFactoryFeature, ui);
+            _feature = new LoadLevelFeature(gameFactoryFeature, ui);
 
-        DI.Bind(_feature);
-        Log.PrintColor($"[ILoadLevelFeature] Create and Bind", Color.cyan);
+            container.Bind(_feature);
 
-        //_sceneManager.OnSceneLoadedEvent += LoadWorldLog;
-        _sceneManagementService.SceneLoaded += SceneLoaded;
-        Debug.LogWarning($"LoadLevelFeature OnSceneLoadedEvent subscribe");
+            Log.PrintColor($"[ILoadLevelFeature] Create and Bind", Color.cyan);
 
-        //LoadWorldLog(true);
+            _sceneManagementService.SceneLoaded += SceneLoaded;
 
-        return _feature;
+            return _feature;
+        }
+
+        public override void Dispose()
+        {
+            _sceneManagementService.SceneLoaded -= SceneLoaded;
+        }
+
+        private void SceneLoaded(string sceneName)
+        {
+            Log.PrintColor($"LoadLevleFeature SceneLoaded({sceneName}) Start LoadGameLevelEnviroment", Color.yellow);
+            _feature.LoadGameLevelEnviroment(_sceneManagementService);
+        }
     }
-
-    private void SceneLoaded(string sceneName)
-    {
-        Log.PrintColor($"LoadLevleFeature SceneLoaded({sceneName})", Color.yellow);
-        _feature.LoadGameLevelEnviroment(_sceneManagementService);
-    }
-
-    public override void Dispose()
-    {
-        //_sceneManager.OnSceneLoadedEvent -= LoadWorldLog;
-        _sceneManagementService.SceneLoaded -= SceneLoaded;
-
-    }
-
-    //private void LoadWorldLog(SceneLoadingArgs args)
-    //{
-    //    Log.PrintColor($"LoadLevelFeature OnSceneLoadedEvent call", UnityEngine.Color.green);
-
-    //    _feature.LoadGameLevelEnviroment();
-    //}
 }

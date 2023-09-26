@@ -1,10 +1,9 @@
-using Assets.Game.Services.Progress_Service.api;
+using Assets.Game.Services.ProgressService.api;
 using Lofelt.NiceVibrations;
 using MoreMountains.Tools;
 using UnityEngine;
-using WKosArch.Audio_Service.Representation;
 
-namespace WKosArch.Representation.Audio_Service
+namespace WKosArch.Services.SoundService
 {
     public class SoundManager : MonoBehaviour, ISavedProgress
     {
