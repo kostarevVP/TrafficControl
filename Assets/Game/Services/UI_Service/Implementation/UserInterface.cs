@@ -156,7 +156,8 @@ namespace WKosArch.Services.UIService
 
             var container = GetContainer(prefabWindowViewModel.WindowSettings.TargetLayer);
             var createdWindowViewModel = Instantiate(prefabWindowViewModel, container);
-            prefabWindowViewModel.InjectDI(_container);
+
+            createdWindowViewModel.InjectDI(_container);
 
             _createdWindowViewModelsCache[windowViewModelType] = createdWindowViewModel;
 

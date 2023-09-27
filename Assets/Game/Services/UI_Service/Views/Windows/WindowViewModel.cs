@@ -27,7 +27,8 @@ namespace WKosArch.UIService.Views.Windows
             {
                 if(_userInterface == null)
                 {
-                    _userInterface = new DIVar<UserInterface>().Value;
+                    //_userInterface = new DIVar<UserInterface>().Value;
+                    _userInterface = Container.Resolve<UserInterface>();
                 }
 
                 return _userInterface;
