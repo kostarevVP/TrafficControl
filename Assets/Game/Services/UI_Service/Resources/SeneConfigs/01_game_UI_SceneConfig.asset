@@ -15,6 +15,8 @@ MonoBehaviour:
   _windowPrefabs:
   - {fileID: 8770292261683149688, guid: 4a5890b4b77e8454cae13d6d741a654c, type: 3}
   - {fileID: 8656102903178498742, guid: 5654d523f82cf034ca45a7bd5f9999b8, type: 3}
-  SceneName: 01_game
-  SceneIndex: 1
-  _firstSceneToLoad: {fileID: 102900000, guid: e9e0c7434626c424f81dc7963f7849e0, type: 3}
+  SceneName:
+  - 01_game
+  SceneIndex: 01000000
+  _scenes:
+  - {fileID: 102900000, guid: e9e0c7434626c424f81dc7963f7849e0, type: 3}
