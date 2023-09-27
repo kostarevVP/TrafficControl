@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using WKosArch.Extentions;
 using WKosArch.Services.UIService;
 
 namespace WKosArch.Services.StaticDataServices
@@ -14,14 +14,17 @@ namespace WKosArch.Services.StaticDataServices
         public Dictionary<string, UISceneConfig> SceneConfigsMap => _sceneConfigsMap;
         public bool IsReady => _isReady;
 
+        private IAssetProviderService _assetProviderService;
 
         private GameProgressConfig _gameProgressStaticData;
         private Dictionary<string, UISceneConfig> _sceneConfigsMap = new Dictionary<string, UISceneConfig>();
 
         private bool _isReady;
 
-        public StaticDataService()
+        public StaticDataService(IAssetProviderService assetProviderService)
         {
+            _assetProviderService = assetProviderService;
+
             LoadGameProgressConfig();
             LoadSceneConfigs();
 
@@ -35,13 +38,23 @@ namespace WKosArch.Services.StaticDataServices
 
         private void LoadGameProgressConfig()
         {
-            _gameProgressStaticData = Resources.Load<GameProgressConfig>(GameProgressPath);
+            _gameProgressStaticData = _assetProviderService.Load<GameProgressConfig>(GameProgressPath);
         }
 
         private void LoadSceneConfigs()
         {
-            _sceneConfigsMap = Resources.LoadAll<UISceneConfig>(SceneConfigsFolderPath)
-                .ToDictionary(conf => conf.SceneName, conf => conf);
+            var scenesConfigs = _assetProviderService.LoadAll<UISceneConfig>(SceneConfigsFolderPath);
+
+            foreach (var sceneConfigs in scenesConfigs)
+            {
+                foreach (var scene in sceneConfigs.SceneName)
+                {
+                    if (!_sceneConfigsMap.ContainsKey(scene))
+                        _sceneConfigsMap[scene] = sceneConfigs;
+                    else
+                        Log.PrintError($"You try add Scene WindowConfigs that is have another WindowConfig");
+                }
+            }
         }
 
         private void Clear()
@@ -49,5 +62,5 @@ namespace WKosArch.Services.StaticDataServices
             _gameProgressStaticData = null;
             _sceneConfigsMap.Clear();
         }
-    } 
+    }
 }

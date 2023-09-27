@@ -1,6 +1,8 @@
+using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using WKosArch.Services.UIService.Common;
 using WKosArch.UIService.Views.Windows;
@@ -25,13 +27,17 @@ namespace WKosArch.Services.UIService
         private Dictionary<Type, WindowViewModel> _createdWindowViewModelsCache = new Dictionary<Type, WindowViewModel>();
         private WindowsStack _windowStack = new WindowsStack();
 
-        public static UserInterface CreateInstance()
+        private static IDIContainer _container;
+
+        public static UserInterface CreateInstance(IDIContainer container)
         {
             if (_instance != null)
             {
                 Debug.LogWarning($"UserInterface CreateInstance _instance = {_instance}");
                 return _instance;
             }
+
+            _container = container;
 
             var prefab = Resources.Load<UserInterface>(PrefabPath);
             _instance = Instantiate(prefab);
@@ -52,7 +58,7 @@ namespace WKosArch.Services.UIService
             DestroyOldWindows();
             CreateNewWindows();
         }
-        
+
 
         public bool TryGetActiveWindowViewModel<T>(out T activeWindowViewModel) where T : WindowViewModel
         {
@@ -140,6 +146,7 @@ namespace WKosArch.Services.UIService
 
         private WindowViewModel CreateWindowViewModel(WindowViewModel prefabWindowViewModel)
         {
+
             var windowViewModelType = prefabWindowViewModel.GetType();
 
             if (_createdWindowViewModelsCache.TryGetValue(windowViewModelType, out var windowViewModel))
@@ -149,8 +156,10 @@ namespace WKosArch.Services.UIService
 
             var container = GetContainer(prefabWindowViewModel.WindowSettings.TargetLayer);
             var createdWindowViewModel = Instantiate(prefabWindowViewModel, container);
+            prefabWindowViewModel.InjectDI(_container);
 
             _createdWindowViewModelsCache[windowViewModelType] = createdWindowViewModel;
+
 
             if (createdWindowViewModel.WindowSettings.OpenWhenCreated)
             {

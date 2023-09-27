@@ -1,9 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using WKosArch.Common.DIContainer;
 using WKosArch.Presentation.Common;
 using UnityEngine;
-using WKosArch.Services.UIService;
 
 namespace WKosArch.UIService.Views.Windows
 {
@@ -12,27 +10,12 @@ namespace WKosArch.UIService.Views.Windows
     {
         public event Action<WindowViewModel> Hidden;
         public event Action<WindowViewModel> Destroyed;
-        public event Action<bool> BlockInteractingRequested;
 
         [SerializeField] private Transition _transitionIn = default;
         [SerializeField] private Transition _transitionOut = default;
 
         public bool IsShown { get; private set; }
-
-        protected UserInterface UI => _userInterface.Value;
-
-        private DIVar<UserInterface> _userInterface = new DIVar<UserInterface>();
-
-        public void BlockInteractions()
-        {
-            BlockInteractingRequested?.Invoke(true);
-        }
-
-        public void UnlockInteractions()
-        {
-            BlockInteractingRequested?.Invoke(false);
-        }
-
+       
         public async UniTask<IWindow> Show()
         {
             IsShown = true;

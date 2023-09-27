@@ -2,11 +2,26 @@
 
 namespace WKosArch.Common.Utils.Observables
 {
-	public class ObservableEvent
+	public class ObservableEvent : IObserver<object>
 	{
 		public event Action Raised;
 
-		public void Raise()
+        public void OnCompleted()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnError(Exception error)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnNext(object value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Raise()
 		{
 			Raised?.Invoke();
 		}

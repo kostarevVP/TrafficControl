@@ -104,16 +104,16 @@ namespace VavilichevGD.Utils.Timing
 			switch (type)
 			{
 				case TimerType.UpdateTick:
-					TimeInvoker.instance.OnUpdateTimeTickedEvent += OnTicked;
+					TimeInvoker.Instance.OnUpdateTimeTickedEvent += OnTicked;
 					break;
 				case TimerType.UpdateTickUnscaled:
-					TimeInvoker.instance.OnUpdateTimeUnscaledTickedEvent += OnTicked;
+					TimeInvoker.Instance.OnUpdateTimeUnscaledTickedEvent += OnTicked;
 					break;
 				case TimerType.OneSecTick:
-					TimeInvoker.instance.OnOneSyncedSecondTickedEvent += OnSyncedSecondTicked;
+					TimeInvoker.Instance.OnOneSyncedSecondTickedEvent += OnSyncedSecondTicked;
 					break;
 				case TimerType.OneSecTickUnscaled:
-					TimeInvoker.instance.OnOneSyncedSecondUnscaledTickedEvent += OnSyncedSecondTicked;
+					TimeInvoker.Instance.OnOneSyncedSecondUnscaledTickedEvent += OnSyncedSecondTicked;
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -125,16 +125,16 @@ namespace VavilichevGD.Utils.Timing
 			switch (type)
 			{
 				case TimerType.UpdateTick:
-					TimeInvoker.instance.OnUpdateTimeTickedEvent -= OnTicked;
+					TimeInvoker.Instance.OnUpdateTimeTickedEvent -= OnTicked;
 					break;
 				case TimerType.UpdateTickUnscaled:
-					TimeInvoker.instance.OnUpdateTimeUnscaledTickedEvent -= OnTicked;
+					TimeInvoker.Instance.OnUpdateTimeUnscaledTickedEvent -= OnTicked;
 					break;
 				case TimerType.OneSecTick:
-					TimeInvoker.instance.OnOneSyncedSecondTickedEvent -= OnSyncedSecondTicked;
+					TimeInvoker.Instance.OnOneSyncedSecondTickedEvent -= OnSyncedSecondTicked;
 					break;
 				case TimerType.OneSecTickUnscaled:
-					TimeInvoker.instance.OnOneSyncedSecondUnscaledTickedEvent -= OnSyncedSecondTicked;
+					TimeInvoker.Instance.OnOneSyncedSecondUnscaledTickedEvent -= OnSyncedSecondTicked;
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

@@ -11,7 +11,6 @@ namespace WKosArch.UIService.Views.Windows
     {
         event Action<WindowViewModel> Hidden;
         event Action<WindowViewModel> Destroyed;
-        event Action<bool> BlockInteractingRequested;
 
         bool IsShown { get; }
 

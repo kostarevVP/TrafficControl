@@ -12,7 +12,9 @@ namespace WKosArch.Services.StaticDataServices
         private IStaticDataService _feature;
         public override IFeature Create(IDIContainer container)
         {
-            _feature = new StaticDataService();
+            var assetProviderService = container.Resolve<IAssetProviderService>();
+
+            _feature = new StaticDataService(assetProviderService);
 
             container.Bind(_feature);
 

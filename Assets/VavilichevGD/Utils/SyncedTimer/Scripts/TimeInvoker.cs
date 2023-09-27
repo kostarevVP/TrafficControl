@@ -10,7 +10,7 @@ namespace VavilichevGD.Utils.Timing
 		public event Action OnOneSyncedSecondTickedEvent;
 		public event Action OnOneSyncedSecondUnscaledTickedEvent;
 
-		public static TimeInvoker instance
+		public static TimeInvoker Instance
 		{
 			get
 			{

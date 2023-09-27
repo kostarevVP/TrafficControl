@@ -1,5 +1,4 @@
-﻿using WKosArch.Common;
-using WKosArch.Services.UIService;
+﻿using WKosArch.Services.UIService;
 
 namespace WKosArch.UIService.Views.Windows
 {
@@ -14,13 +13,6 @@ namespace WKosArch.UIService.Views.Windows
         {
             OpeningWindowViewModel = windowViewModel;
             _ui = ui;
-        }
-
-        public IWindowOpenHandler AddPayloads(params Payload[] payloads)
-        {
-            OpeningWindowViewModel.AddPayloads(payloads);
-
-            return this;
         }
 
         public void WithBackDestination<TWindowViewModel>() where TWindowViewModel : WindowViewModel

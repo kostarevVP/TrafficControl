@@ -1,3 +1,4 @@
+using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using System;
 using WKosArch.Services.Scenes;
 using WKosArch.Services.StaticDataServices;
@@ -14,12 +15,14 @@ namespace WKosArch.Services.UIService
 
         private bool _isReady;
 
-        public UIService(IStaticDataService staticDataService, ISceneManagementService sceneManagementService)
+        public UIService(IStaticDataService staticDataService,
+            ISceneManagementService sceneManagementService,
+            IDIContainer container)
         {
             _staticDataService = staticDataService;
             _sceneManagementService = sceneManagementService;
 
-            UI = UserInterface.CreateInstance();
+            UI = UserInterface.CreateInstance(container);
 
             _sceneManagementService.SceneLoaded += SceneLoaded;
         }

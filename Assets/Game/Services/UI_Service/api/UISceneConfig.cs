@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using WKosArch.Extentions;
 using WKosArch.UIService.Views.Windows;
 
 namespace WKosArch.Services.UIService
@@ -12,19 +13,34 @@ namespace WKosArch.Services.UIService
 
         public WindowViewModel[] WindowPrefabs => _windowPrefabs;
 
-        [HideInInspector] public string SceneName;
-        [HideInInspector] public int SceneIndex;
+        [HideInInspector] public string[] SceneName;
+        [HideInInspector] public int[] SceneIndex;
 
 #if UNITY_EDITOR
         [Space]
-        [SerializeField] private SceneAsset _firstSceneToLoad;
+        [SerializeField] private SceneAsset[] _scenes;
 
         private void OnValidate()
         {
-            if (_firstSceneToLoad != null)
+            if (_scenes != null)
             {
-                SceneName = _firstSceneToLoad.name;
-                SceneIndex = GetSceneIndexByName(SceneName);
+                SceneName = new string[_scenes.Length];
+                SceneIndex = new int[_scenes.Length];
+
+                for (int i = 0; i < _scenes.Length; i++)
+                {
+                    if (_scenes[i] != null)
+                    {
+                        var sceneName = _scenes[i].name;
+
+                        SceneName[i] = sceneName;
+                        SceneIndex[i] = GetSceneIndexByName(sceneName);
+                    }
+                    else
+                    {
+                        Log.PrintWarning($"Not add Scene to UISceneConfig {this}");
+                    }
+                }
             }
         }
 #endif

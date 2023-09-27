@@ -17,7 +17,7 @@ namespace  WKosArch.Services.UIService
             var sceneMenegmentService = container.Resolve<ISceneManagementService>();
             var staticDataService = container.Resolve<IStaticDataService>();
 
-            _service = new UIService(staticDataService, sceneMenegmentService);
+            _service = new UIService(staticDataService, sceneMenegmentService, container);
 
             container.Bind(_service);
             container.Bind(_service.UI);

@@ -8,6 +8,7 @@ namespace WKosArch.Services.AssetProviderService
 
         public bool IsReady => _isReady;
 
+        
 
         public GameObject Instantiate(string path)
         {
@@ -25,6 +26,16 @@ namespace WKosArch.Services.AssetProviderService
         {
             var prefab = Resources.Load<GameObject>(path);
             return Object.Instantiate(prefab, at, rotaion);
+        }
+
+        public T Load<T>(string path) where T : Object
+        {
+            return Resources.Load<T>(path);
+        }
+
+        public T[] LoadAll<T>(string path) where T : Object
+        {
+            return Resources.LoadAll<T>(path);
         }
 
         public GameObject Load(string path)

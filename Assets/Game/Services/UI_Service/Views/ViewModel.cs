@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using WKosArch.Common;
+﻿using Assets.LocalPackages.WKosArch.Scripts.Common.DIContainer;
 using UnityEngine;
 
 namespace WKosArch.UIService.Views
@@ -8,9 +7,15 @@ namespace WKosArch.UIService.Views
     {
         public IView View { get; private set; }
         public bool IsActive => View.IsActive;
+        public IDIContainer Container => _container;
         
-        private readonly Dictionary<string, object> _payloadsMap = new Dictionary<string, object>();
-        
+        private IDIContainer _container;
+
+        public void InjectDI(IDIContainer container)
+        {
+            _container = container;
+        }
+
         private void Awake()
         {
             View = GetComponent<IView>();
@@ -19,16 +24,6 @@ namespace WKosArch.UIService.Views
         }
 
         protected virtual void AwakeInternal() { }
-
-        public void AddPayloads(params Payload[] payloads)
-        {
-            foreach (var payload in payloads)
-            {
-                _payloadsMap[payload.Key] = payload.Value;
-            }
-            
-            PayloadsAdded();
-        }
 
         public void Refresh()
         {
@@ -51,31 +46,8 @@ namespace WKosArch.UIService.Views
             View.Unsubscribe();
         }
 
-        protected virtual void PayloadsAdded() { }
         protected virtual void RefreshInternal() { }
         protected virtual void SubscribeInternal() { }
         protected virtual void UnsubscribeInternal() { }
-
-        protected bool TryGetPayload<T>(string key, out T payload)
-        {
-            payload = default;
-            
-            var payloadExists = _payloadsMap.TryGetValue(key, out object payloadObject);
-            
-            if (payloadExists)
-            {
-                payload = (T) payloadObject;
-            }
-
-            return payloadExists;
-        }
-
-        protected void RemovePayload(string key)
-        {
-            if (_payloadsMap.ContainsKey(key))
-            {
-                _payloadsMap.Remove(key);
-            }
-        }
     }
 }
